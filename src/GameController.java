@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.TimerTask;
 public class GameController
 {
 
-    ArrayList<Player> players;
-    GameView  gameView;
+    private ArrayList<Player> players;
+    private GameView  gameView;
     boolean[] keys;
 
     public GameController(ArrayList<Player> players,GameView gV){
@@ -21,57 +22,8 @@ public class GameController
         this.players = players;
         gameView  = gV;
 
-        gameView.addKeyListener(new KeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()){
-                    case KeyEvent.VK_UP :
-                            System.out.println("UP");
-                            players.get(0).setYspeed(-10);
-                        break;
-                    case KeyEvent.VK_DOWN :
-                            System.out.println("DOWN");
-                            players.get(0).setYspeed(10);
-                        break;
-                    case KeyEvent.VK_RIGHT :
-                            System.out.println("RIGHT");
-                            players.get(0).setXspeed(10);
-                        break;
-                    case KeyEvent.VK_LEFT :
-                            System.out.println("LEFT");
-                            players.get(0).setXspeed(-10);
-                        break;
-                }
-                System.out.println("XSpeed: " + players.get(0).getXspeed());
-                System.out.println("YSpeed: " + players.get(0).getYspeed());
-            }
+        gameView.addKeyListener(new InputKeyEvents() {
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-                switch (e.getKeyCode()){
-                    case KeyEvent.VK_UP :
-                        players.get(0).setYspeed(0);
-                        break;
-                    case KeyEvent.VK_DOWN :
-                        players.get(0).setYspeed(0);
-                        break;
-                    case KeyEvent.VK_RIGHT :
-                        players.get(0).setXspeed(0);
-                        break;
-                    case KeyEvent.VK_LEFT :
-                        players.get(0).setXspeed(0);
-                        break;
-                }
-//                update();
-//                gameView.repaint();
-                System.out.println("XSpeed: " + players.get(0).getXspeed());
-                System.out.println("YSpeed: " + players.get(0).getYspeed());
-            }
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
         });
 
         java.util.Timer timer = new Timer();
@@ -85,10 +37,64 @@ public class GameController
         timer.schedule(timerTask,0,20);
     }
 
-    public void update(){
+    private void update(){
         for(Player player : players){
             player.update();
         }
     }
+
+    private class InputKeyEvents extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch (e.getKeyCode()){
+                case KeyEvent.VK_UP :
+                    System.out.println("UP");
+                    players.get(0).setYspeed(-10);
+                    break;
+                case KeyEvent.VK_DOWN :
+                    System.out.println("DOWN");
+                    players.get(0).setYspeed(10);
+                    break;
+                case KeyEvent.VK_RIGHT :
+                    System.out.println("RIGHT");
+                    players.get(0).setXspeed(10);
+                    break;
+                case KeyEvent.VK_LEFT :
+                    System.out.println("LEFT");
+                    players.get(0).setXspeed(-10);
+                    break;
+            }
+            System.out.println("XSpeed: " + players.get(0).getXspeed());
+            System.out.println("YSpeed: " + players.get(0).getYspeed());
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            switch (e.getKeyCode()){
+                case KeyEvent.VK_UP :
+                    players.get(0).setYspeed(0);
+                    break;
+                case KeyEvent.VK_DOWN :
+                    players.get(0).setYspeed(0);
+                    break;
+                case KeyEvent.VK_RIGHT :
+                    players.get(0).setXspeed(0);
+                    break;
+                case KeyEvent.VK_LEFT :
+                    players.get(0).setXspeed(0);
+                    break;
+            }
+//                update();
+//                gameView.repaint();
+            System.out.println("XSpeed: " + players.get(0).getXspeed());
+            System.out.println("YSpeed: " + players.get(0).getYspeed());
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+    }
+
 
 }
