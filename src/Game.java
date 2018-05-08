@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 public class Game extends JFrame{
 
-    public Game(){
-        Player player = new Player(0,0,100);
-        Player player1 = new Player(100,100,100);
+    Game(){
+//        Ball ball = new Ball(200,150,Constants.BALL_RADIUS);
+        Player player = new Player(0,0,Constants.PLAYER_RADIUS);
+        Player player1 = new Player(100,100,Constants.PLAYER_RADIUS);
+        Ball ball = new Ball(500,500,Constants.BALL_RADIUS);
         ArrayList<Player> players = new ArrayList<>();
         players.add(player);
         players.add(player1);
+        players.add(ball);
         GameView gameView = new GameView(players);
         GameController gameController = new GameController(players,gameView);
         init(gameView);

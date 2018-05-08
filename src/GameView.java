@@ -12,18 +12,18 @@ import static java.awt.image.ImageObserver.WIDTH;
 //When you do something to the view (like click a Key) then the view tells the controller what you did. It's the controller's job to handle that.
 public class GameView extends JPanel {
 
-    ArrayList<Player> players;
+    private ArrayList<Player> players;
 
-    public GameView(ArrayList<Player> players){
+    GameView(ArrayList<Player> players){
         setFocusable(true);
         this.players = players;
         setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
 
     }
 
-    public void drawPlayers(Graphics g){
+    private void drawPlayers(Graphics g){
         for(Player player:players) {
-            g.drawImage(player.getImage(), player.getX(), player.getY(), player.getRadius(), player.getRadius(), this);
+            g.drawImage(player.getImage(), (int)player.getX(), (int)player.getY(), 2*player.getRadius(), 2*player.getRadius(), this);
         }
     }
 

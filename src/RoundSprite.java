@@ -3,13 +3,14 @@ import java.awt.Image;
 public class RoundSprite {
 
     private Image image;
-    private int x;
-    private int y;
-    private int xspeed;
-    private int yspeed;
+    private double x;
+    private double y;
+    private double xspeed;
+    private double yspeed;
     private int radius;
-    private int xCenter;
-    private int yCenter;
+    private double xCenter;
+    private double yCenter;
+    private double angle;
 
     public RoundSprite(){
         this.x = 0;
@@ -17,6 +18,7 @@ public class RoundSprite {
         xspeed = 0;
         yspeed = 0;
         radius = 0;
+        angle = 0.0;
     }
 
     public RoundSprite(int x , int y, int r ){
@@ -24,6 +26,7 @@ public class RoundSprite {
         this.x = x ;
         this.y = y ;
         this.radius = r;
+        angle = 0.0;
     }
 
     public void update(){
@@ -31,36 +34,36 @@ public class RoundSprite {
         y+= yspeed;
     }
 
-    public int getXspeed() {
+    public double getXspeed() {
         return xspeed;
     }
 
-    public void setXspeed(int xspeed) {
+    public void setXspeed(double xspeed) {
         this.xspeed = xspeed;
     }
 
-    public int getYspeed() {
+    public double getYspeed() {
         return yspeed;
     }
 
-    public void setYspeed(int yspeed) {
+    public void setYspeed(double yspeed) {
         this.yspeed = yspeed;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x + xspeed;
+    public void setX(double x) {
+        this.x = x ;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y + yspeed;
+    public void setY(double y) {
+        this.y =  y ;
     }
 
     public int getRadius() {
@@ -75,12 +78,20 @@ public class RoundSprite {
         this.image = image;
     }
 
-    public int getxCenter() {
+    public double getxCenter() {
         return x + radius;
     }
 
-    public int getyCenter() {
+    public double getyCenter() {
         return y + radius;
     }
 
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
 }
