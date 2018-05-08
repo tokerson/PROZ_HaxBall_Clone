@@ -30,7 +30,7 @@ class GameController
             @Override
             public void run() {
                 update();
-                checkCollision();
+                handleCollision();
                 gameView.repaint();
             }
         };
@@ -46,20 +46,12 @@ class GameController
     private boolean doPlayersCollide(){
         Player player1 = players.get(0);
         Player player2 = players.get(1);
-        double i = player1.getRadius() + player2.getRadius() ;
-        double j = calcDistance(player1.getxCenter() , player2.getxCenter(), player1.getyCenter() , player2.getyCenter());
-        if( i >= j )
-        {
-            System.out.println("i = " +i);
-            System.out.println("j = " +j);
-            System.out.println("player1 x and y " + player1.getxCenter()+" "+player1.getyCenter());
-            System.out.println("player2 x and y " + player2.getxCenter()+" "+player2.getyCenter());
-            return true;
-        }
-        return false;
+        double possibleDistance = player1.getRadius() + player2.getRadius() ;
+        double actualDistance= calcDistance(player1.getxCenter() , player2.getxCenter(), player1.getyCenter() , player2.getyCenter());
+        return possibleDistance >= actualDistance ;
     }
 
-    private void checkCollision(){
+    private void handleCollision(){
         if(doPlayersCollide()){
             Player player1 = players.get(0);
             Player player2 = players.get(1);
@@ -70,6 +62,7 @@ class GameController
             double player2x = player2.getX();
             double player1y = player1.getY();
             double player2y = player2.getY();
+
             player1x -= overlap*(player1x - player2x) / distance;
             player1y -= overlap*(player1y - player2y) / distance;
             player2x += overlap*(player1x - player2x) / distance;
@@ -167,28 +160,42 @@ class GameController
 
         private void handleMoving(){
             if(keys[0]){
-                players.get(0).setYspeed(-Constants.SPEED);
+                if(keys[2] || keys[3]){
+                    players.get(0).setYspeed(-Constants.SPEED/Math.sqrt(2));
+                }
+                else
+                    players.get(0).setYspeed(-Constants.SPEED);
             }
             if(keys[1]){
-                players.get(0).setYspeed(Constants.SPEED);
+                if(keys[2] || keys[3]){
+                    players.get(0).setYspeed(Constants.SPEED/Math.sqrt(2));
+                } else players.get(0).setYspeed(Constants.SPEED);
             }
             if(keys[2]){
-                players.get(0).setXspeed(Constants.SPEED);
+                if(keys[0] || keys[1])
+                    players.get(0).setXspeed(Constants.SPEED/Math.sqrt(2));
+                    else players.get(0).setXspeed(Constants.SPEED);
             }
             if(keys[3]){
-                players.get(0).setXspeed(-Constants.SPEED);
+                if(keys[0] || keys[1])
+                    players.get(0).setXspeed(-Constants.SPEED/Math.sqrt(2));
+                else players.get(0).setXspeed(-Constants.SPEED);
             }
             if(keys[4]){
-                players.get(1).setYspeed(-Constants.SPEED);
+                if(keys[6] || keys[7]) players.get(1).setYspeed(-Constants.SPEED/Math.sqrt(2));
+                else players.get(1).setYspeed(-Constants.SPEED);
             }
             if(keys[5]){
-                players.get(1).setYspeed(Constants.SPEED);
+                if(keys[6] || keys[7]) players.get(1).setYspeed(Constants.SPEED/Math.sqrt(2));
+                else players.get(1).setYspeed(Constants.SPEED);
             }
             if(keys[6]){
-                players.get(1).setXspeed(Constants.SPEED);
+                if(keys[4] || keys[5]) players.get(1).setXspeed(Constants.SPEED/Math.sqrt(2));
+                else players.get(1).setXspeed(Constants.SPEED);
             }
             if(keys[7]){
-                players.get(1).setXspeed(-Constants.SPEED);
+                if(keys[4] || keys[5]) players.get(1).setXspeed(-Constants.SPEED/Math.sqrt(2));
+                else players.get(1).setXspeed(-Constants.SPEED);
             }
         }
     }
