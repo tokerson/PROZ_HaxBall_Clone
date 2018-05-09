@@ -11,13 +11,21 @@ class GameController
 {
 
     private ArrayList<Player> players;
+    private Ball ball;
+    private ArrayList<RoundSprite> gameObjects = new ArrayList<>();
     private GameView  gameView;
     boolean[] keys;
     private Timer timer;
 
-    GameController(ArrayList<Player> players, GameView gV){
+    GameController(ArrayList<Player> players,Ball ball, GameView gV){
 
         this.players = players;
+        this.ball = ball;
+
+        for(int i = 0 ; i < this.players.size();++i){
+            gameObjects.add(this.players.get(i));
+        }
+        gameObjects.add(ball);
         gameView  = gV;
         keys = new boolean[10];
 
@@ -41,51 +49,55 @@ class GameController
         for(Player player : players){
             player.update();
         }
+        ball.update();
     }
 
-    private boolean doPlayersCollide(){
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
-        double possibleDistance = player1.getRadius() + player2.getRadius() ;
-        double actualDistance= calcDistance(player1.getxCenter() , player2.getxCenter(), player1.getyCenter() , player2.getyCenter());
+    private boolean doObjectsCollide(RoundSprite sprite1,RoundSprite sprite2){
+        double possibleDistance = sprite1.getRadius() + sprite2.getRadius() ;
+        double actualDistance= calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
         return possibleDistance >= actualDistance ;
     }
 
     private void handleCollision(){
-        if(doPlayersCollide()){
-            Player player1 = players.get(0);
-            Player player2 = players.get(1);
-            double distance = calcDistance(player1.getxCenter() , player2.getxCenter(), player1.getyCenter() , player2.getyCenter());
-            double overlap =  0.5*(distance - player1.getRadius() - player2.getRadius());
-
-            double player1x = player1.getX();
-            double player2x = player2.getX();
-            double player1y = player1.getY();
-            double player2y = player2.getY();
-
-            player1x -= overlap*(player1x - player2x) / distance;
-            player1y -= overlap*(player1y - player2y) / distance;
-            player2x += overlap*(player1x - player2x) / distance;
-            player2y += overlap*(player1y - player2y) / distance;
-
-            player1.setX(player1x);
-            player1.setY(player1y);
-            player2.setX(player2x);
-            player2.setY(player2y);
-
-            double nx = (player2.getX()-player1.getX()) / distance;
-            double ny = (player2.getY()-player1.getY()) / distance;
-            double kx = player1.getXspeed() - player2.getXspeed();
-            double ky = player1.getYspeed() - player2.getYspeed();
-            double p = 2.0*(nx*kx + ny*ky)/2.0;
-
-            player1.setXspeed(player1.getXspeed() - p * nx);
-            player1.setYspeed(player1.getYspeed() - p * ny);
-            player2.setXspeed(player2.getXspeed() + p * nx);
-            player2.setYspeed(player2.getYspeed() + p * ny);
-
-            update();
+        for(int i = 0 ; i <  gameObjects.size() - 1 ; ++i){
+            for(int j = 1 ; j <  gameObjects.size(); ++j) {
+                if (gameObjects.get(i) !=  gameObjects.get(j) && doObjectsCollide(gameObjects.get(i), gameObjects.get(j))) {
+                    performStaticCollision(gameObjects.get(i), gameObjects.get(j));
+                }
+            }
         }
+    }
+
+    private void performStaticCollision(RoundSprite sprite1, RoundSprite sprite2){
+        double distance = calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
+        double overlap =  0.5*(distance - sprite1.getRadius() - sprite2.getRadius());
+
+        double sprite1x = sprite1.getX();
+        double sprite2x = sprite2.getX();
+        double sprite1y = sprite1.getY();
+        double sprite2y = sprite2.getY();
+
+        sprite1x -= overlap*(sprite1x - sprite2x) / distance;
+        sprite1y -= overlap*(sprite1y - sprite2y) / distance;
+        sprite2x += overlap*(sprite1x - sprite2x) / distance;
+        sprite2y += overlap*(sprite1y - sprite2y) / distance;
+
+        sprite1.setX(sprite1x);
+        sprite1.setY(sprite1y);
+        sprite2.setX(sprite2x);
+        sprite2.setY(sprite2y);
+
+        double nx = (sprite2.getX()-sprite1.getX()) / distance;
+        double ny = (sprite2.getY()-sprite1.getY()) / distance;
+        double kx = sprite1.getXspeed() - sprite2.getXspeed();
+        double ky = sprite1.getYspeed() - sprite2.getYspeed();
+        double p = 2.0*(nx*kx + ny*ky)/(sprite1.getMass() + sprite2.getMass());
+
+        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
+        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
+        sprite2.setXspeed(sprite2.getXspeed() + p * nx * sprite1.getMass());
+        sprite2.setYspeed(sprite2.getYspeed() + p * ny * sprite1.getMass());
+
     }
 
     private double calcDistance(double x1, double x2 , double y1 , double y2){

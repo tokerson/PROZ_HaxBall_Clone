@@ -3,14 +3,14 @@ import java.awt.Image;
 public class RoundSprite {
 
     private Image image;
-    private double x;
-    private double y;
-    private double xspeed;
-    private double yspeed;
+    protected double x;
+    protected double y;
+    protected double xspeed;
+    protected double yspeed;
     private int radius;
     private double xCenter;
     private double yCenter;
-    private double angle;
+    private double mass;
 
     public RoundSprite(){
         this.x = 0;
@@ -18,20 +18,15 @@ public class RoundSprite {
         xspeed = 0;
         yspeed = 0;
         radius = 0;
-        angle = 0.0;
+        this.mass = 1;
     }
 
-    public RoundSprite(int x , int y, int r ){
+    public RoundSprite(int x , int y, int r,double mass ){
         this();
         this.x = x ;
         this.y = y ;
         this.radius = r;
-        angle = 0.0;
-    }
-
-    public void update(){
-        x+= xspeed;
-        y+= yspeed;
+        this.mass = mass;
     }
 
     public double getXspeed() {
@@ -86,12 +81,11 @@ public class RoundSprite {
         return y + radius;
     }
 
-
-    public double getAngle() {
-        return angle;
+    public double getMass() {
+        return mass;
     }
 
-    public void setAngle(double angle) {
-        this.angle = angle;
+    public void setMass(double mass) {
+        this.mass = mass;
     }
 }

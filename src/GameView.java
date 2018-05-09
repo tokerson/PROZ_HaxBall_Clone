@@ -13,18 +13,21 @@ import static java.awt.image.ImageObserver.WIDTH;
 public class GameView extends JPanel {
 
     private ArrayList<Player> players;
+    private Ball ball;
 
-    GameView(ArrayList<Player> players){
+    GameView(ArrayList<Player> players,Ball ball){
         setFocusable(true);
         this.players = players;
+        this.ball = ball;
         setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
 
     }
 
-    private void drawPlayers(Graphics g){
+    private void drawPlayersAndBall(Graphics g){
         for(Player player:players) {
             g.drawImage(player.getImage(), (int)player.getX(), (int)player.getY(), 2*player.getRadius(), 2*player.getRadius(), this);
         }
+        g.drawImage(ball.getImage(),(int) ball.getX(),(int) ball.getY(),2*ball.getRadius(),2*ball.getRadius(),this);
     }
 
     @Override
@@ -33,7 +36,7 @@ public class GameView extends JPanel {
 
         g.setColor(Color.white);
         g.fillRect(0,0,Constants.WIDTH,Constants.HEIGHT);
-        drawPlayers(g);
+        drawPlayersAndBall(g);
     }
 
 

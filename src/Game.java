@@ -6,15 +6,14 @@ public class Game extends JFrame{
 
     Game(){
 //        Ball ball = new Ball(200,150,Constants.BALL_RADIUS);
-        Player player = new Player(0,0,Constants.PLAYER_RADIUS);
-        Player player1 = new Player(100,100,Constants.PLAYER_RADIUS);
-        Ball ball = new Ball(500,500,Constants.BALL_RADIUS);
+        Player player = new Player(0,0,Constants.PLAYER_RADIUS,4);
+        Player player1 = new Player(100,100,Constants.PLAYER_RADIUS,4);
+        Ball ball = new Ball(500,500,Constants.BALL_RADIUS,0.5);
         ArrayList<Player> players = new ArrayList<>();
         players.add(player);
         players.add(player1);
-        players.add(ball);
-        GameView gameView = new GameView(players);
-        GameController gameController = new GameController(players,gameView);
+        GameView gameView = new GameView(players,ball);
+        GameController gameController = new GameController(players,ball,gameView);
         init(gameView);
     }
     private void init(GameView gameView){
