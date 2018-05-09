@@ -73,6 +73,17 @@ class GameController
             player2.setX(player2x);
             player2.setY(player2y);
 
+            double nx = (player2.getX()-player1.getX()) / distance;
+            double ny = (player2.getY()-player1.getY()) / distance;
+            double kx = player1.getXspeed() - player2.getXspeed();
+            double ky = player1.getYspeed() - player2.getYspeed();
+            double p = 2.0*(nx*kx + ny*ky)/2.0;
+
+            player1.setXspeed(player1.getXspeed() - p * nx);
+            player1.setYspeed(player1.getYspeed() - p * ny);
+            player2.setXspeed(player2.getXspeed() + p * nx);
+            player2.setYspeed(player2.getYspeed() + p * ny);
+
             update();
         }
     }
