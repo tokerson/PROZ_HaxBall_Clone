@@ -1,8 +1,5 @@
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,8 +11,8 @@ class GameController
     private Ball ball;
     private ArrayList<RoundSprite> gameObjects = new ArrayList<>();
     private GameView  gameView;
-    boolean[] player1Keys;
-    boolean[] player2Keys;
+    int[] player1Keys;
+    int[] player2Keys;
     private Timer timer;
 
     GameController(ArrayList<Player> players,Ball ball, GameView gV){
@@ -28,8 +25,8 @@ class GameController
         }
         gameObjects.add(ball);
         gameView  = gV;
-        player1Keys = new boolean[5];
-        player2Keys = new boolean[5];
+        player1Keys = new int[2];
+        player2Keys = new int[2];
 
         gameView.addKeyListener(new InputKeyEvents() {
 
@@ -64,7 +61,11 @@ class GameController
         for(int i = 0 ; i <  gameObjects.size() - 1 ; ++i){
             for(int j = 1 ; j <  gameObjects.size(); ++j) {
                 if (gameObjects.get(i) !=  gameObjects.get(j) && doObjectsCollide(gameObjects.get(i), gameObjects.get(j))) {
-                    performStaticCollision(gameObjects.get(i), gameObjects.get(j));
+                    performStaticCollision(gameObjects.get(i), gameObjects.get(j)); // every object collides statically
+                    // every object collides with a ball dynamically
+                    if(gameObjects.get(i) instanceof Ball || gameObjects.get(j) instanceof Ball) {
+                        performDynamicCollision(gameObjects.get(i),gameObjects.get(j));
+                    }
                 }
             }
         }
@@ -79,6 +80,7 @@ class GameController
         double sprite1y = sprite1.getY();
         double sprite2y = sprite2.getY();
 
+        //fey physics calculations
         sprite1x -= overlap*(sprite1x - sprite2x) / distance;
         sprite1y -= overlap*(sprite1y - sprite2y) / distance;
         sprite2x += overlap*(sprite1x - sprite2x) / distance;
@@ -89,17 +91,22 @@ class GameController
         sprite2.setX(sprite2x);
         sprite2.setY(sprite2y);
 
-        double nx = (sprite2.getX()-sprite1.getX()) / distance;
-        double ny = (sprite2.getY()-sprite1.getY()) / distance;
+    }
+
+    private void performDynamicCollision(RoundSprite sprite1,RoundSprite sprite2){
+        double distance = calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
+
+        //fey physics calculations
+        double nx = (sprite2.getX() - sprite1.getX()) / distance;
+        double ny = (sprite2.getY() - sprite1.getY()) / distance;
         double kx = sprite1.getXspeed() - sprite2.getXspeed();
         double ky = sprite1.getYspeed() - sprite2.getYspeed();
-        double p = 2.0*(nx*kx + ny*ky)/(sprite1.getMass() + sprite2.getMass());
+        double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite2.getMass());
 
         sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
         sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
         sprite2.setXspeed(sprite2.getXspeed() + p * nx * sprite1.getMass());
         sprite2.setYspeed(sprite2.getYspeed() + p * ny * sprite1.getMass());
-
     }
 
     private double calcDistance(double x1, double x2 , double y1 , double y2){
@@ -111,28 +118,28 @@ class GameController
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()){
                 case KeyEvent.VK_UP :
-                    player1Keys[0] = true;
+                    player1Keys[0] = -1;
                     break;
                 case KeyEvent.VK_DOWN :
-                    player1Keys[1] = true;
+                    player1Keys[0] = 1;
                     break;
                 case KeyEvent.VK_RIGHT :
-                    player1Keys[2] = true;
+                    player1Keys[1] = 1;
                     break;
                 case KeyEvent.VK_LEFT :
-                    player1Keys[3] = true;
+                    player1Keys[1] = -1;
                     break;
                 case KeyEvent.VK_W :
-                    player2Keys[0] = true;
+                    player2Keys[0] = -1;
                     break;
                 case KeyEvent.VK_S :
-                    player2Keys[1] = true;
+                    player2Keys[0] = 1;
                     break;
                 case KeyEvent.VK_D :
-                    player2Keys[2] = true;
+                    player2Keys[1] = 1;
                     break;
                 case KeyEvent.VK_A :
-                    player2Keys[3] = true;
+                    player2Keys[1] = -1;
                     break;
             }
             handleMoving();
@@ -142,28 +149,28 @@ class GameController
         public void keyReleased(KeyEvent e) {
             switch (e.getKeyCode()){
                 case KeyEvent.VK_UP :
-                    player1Keys[0] = false;
+                    player1Keys[0] = 0;
                     break;
                 case KeyEvent.VK_DOWN :
-                    player1Keys[1] = false;
+                    player1Keys[0] = 0;
                     break;
                 case KeyEvent.VK_RIGHT :
-                    player1Keys[2] = false;
+                    player1Keys[1] = 0;
                     break;
                 case KeyEvent.VK_LEFT :
-                    player1Keys[3] = false;
+                    player1Keys[1] = 0;
                     break;
                 case KeyEvent.VK_W :
-                    player2Keys[0] = false;
+                    player2Keys[0] = 0;
                     break;
                 case KeyEvent.VK_S :
-                    player2Keys[1] = false;
+                    player2Keys[0] = 0;
                     break;
                 case KeyEvent.VK_D :
-                    player2Keys[2] = false;
+                    player2Keys[1] = 0;
                     break;
                 case KeyEvent.VK_A :
-                    player2Keys[3] = false;
+                    player2Keys[1] = 0;
                     break;
             }
                 handleMoving();

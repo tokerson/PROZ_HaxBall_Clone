@@ -9,13 +9,6 @@ class Player extends RoundSprite {
     private boolean kicking;
     private int shotPower;
     private double friction = 1;
-    private int acceleration = 3;
-
-    final double maxSpeed = Constants.SPEED;
-    final int continuousMoveCycleMax = 50;
-
-    double theCurrentSpeed = 0;
-    int continuousMoveCycle = 0;
 
     Player(int x, int y, int r, double m) {
         super(x, y, r, m);
@@ -47,35 +40,36 @@ class Player extends RoundSprite {
         this.shotPower = shotPower;
     }
 
-    public void move(boolean[] keys) {
-        if (!(keys[0] || keys[1] || keys[2] || keys[3])) friction = 0.98;
-        else {
+    public void move(int[] keys) {
+
+        if(isAnyKeyPressed(keys)){
             friction = 1.0;
-            //I should find a better way to do this later on
-            setXspeed(0);
-            setYspeed(0);
-            if (keys[0]) {
-                if (keys[2] || keys[3]) {
-                    setYspeed(-Constants.SPEED / Math.sqrt(2));
-                } else
-                    setYspeed(-Constants.SPEED);
+
+            if(isMovingInTwoDirections(keys)){
+                setYspeed((double)keys[0]*Constants.SPEED / Math.sqrt(2));
+                setXspeed((double)keys[1]*Constants.SPEED / Math.sqrt(2));
             }
-            if (keys[1]) {
-                if (keys[2] || keys[3]) {
-                    setYspeed(Constants.SPEED / Math.sqrt(2));
-                } else setYspeed(Constants.SPEED);
-            }
-            if (keys[2]) {
-                if (keys[0] || keys[1])
-                    setXspeed(Constants.SPEED / Math.sqrt(2));
-                else setXspeed(Constants.SPEED);
-            }
-            if (keys[3]) {
-                if (keys[0] || keys[1])
-                    setXspeed(-Constants.SPEED / Math.sqrt(2));
-                else setXspeed(-Constants.SPEED);
+            else {
+                setYspeed((double)keys[0]*Constants.SPEED);
+                setXspeed((double)keys[1]*Constants.SPEED);
             }
         }
+        else friction = 0.96;
 
+
+    }
+
+    private boolean isAnyKeyPressed(int[]keys){
+        for(int i = 0 ; i < 2 ; ++i){
+            if(keys[i] != 0) return true;
+        }
+        return false;
+    }
+
+    private boolean isMovingInTwoDirections(int[] keys){
+        for(int i = 0 ; i < 2 ; ++i){
+            if(keys[i] == 0) return false;
+        }
+        return true;
     }
 }
