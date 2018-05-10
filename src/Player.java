@@ -40,6 +40,10 @@ class Player extends RoundSprite {
         this.shotPower = shotPower;
     }
 
+    public void kick(){
+
+    }
+
     public void move(int[] keys) {
 
         if(isAnyKeyPressed(keys)){

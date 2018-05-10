@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf687e81-7970-4169-a013-c1c33c848a9b" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/StadiumView.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/playerShooting.png" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change beforePath="$PROJECT_DIR$/out/production/proz/Game$1.class" afterPath="$PROJECT_DIR$/out/production/proz/Game$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/proz/Game.class" afterPath="$PROJECT_DIR$/out/production/proz/Game.class" />
       <change beforePath="$PROJECT_DIR$/out/production/proz/GameController$1.class" afterPath="$PROJECT_DIR$/out/production/proz/GameController$1.class" />
       <change beforePath="$PROJECT_DIR$/out/production/proz/GameController$2.class" afterPath="$PROJECT_DIR$/out/production/proz/GameController$2.class" />
       <change beforePath="$PROJECT_DIR$/out/production/proz/GameController.class" afterPath="$PROJECT_DIR$/out/production/proz/GameController.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/proz/GameView.class" afterPath="$PROJECT_DIR$/out/production/proz/GameView.class" />
       <change beforePath="$PROJECT_DIR$/out/production/proz/Player.class" afterPath="$PROJECT_DIR$/out/production/proz/Player.class" />
+      <change beforePath="$PROJECT_DIR$/src/Game.java" afterPath="$PROJECT_DIR$/src/Game.java" />
       <change beforePath="$PROJECT_DIR$/src/GameController.java" afterPath="$PROJECT_DIR$/src/GameController.java" />
+      <change beforePath="$PROJECT_DIR$/src/GameView.java" afterPath="$PROJECT_DIR$/src/GameView.java" />
       <change beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -25,27 +30,30 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="1" lean-forward="false" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+            <state relative-caret-position="210">
+              <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#982#983#0" expanded="true" />
-                <element signature="e#1024#1025#0" expanded="true" />
+                <element signature="e#1060#1061#0" expanded="true" />
+                <element signature="e#1102#1103#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
-              <caret line="98" column="34" lean-forward="true" selection-start-line="98" selection-start-column="34" selection-end-line="98" selection-end-column="34" />
+            <state relative-caret-position="327">
+              <caret line="112" column="66" lean-forward="true" selection-start-line="112" selection-start-column="66" selection-end-line="112" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#GameController#0;class#GameController#0" expanded="false" />
+                <element signature="method#update#0;class#GameController#0" expanded="false" />
+                <element signature="method#doObjectsCollide#0;class#GameController#0" expanded="false" />
+                <element signature="method#handleCollision#0;class#GameController#0" expanded="false" />
+                <element signature="method#performStaticCollision#0;class#GameController#0" expanded="false" />
                 <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
-                <element signature="method#keyPressed#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-                <element signature="method#keyReleased#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
                 <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
               </folding>
             </state>
@@ -55,8 +63,8 @@
       <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="62" column="29" lean-forward="false" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+            <state relative-caret-position="397">
+              <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#651#652#0" expanded="true" />
@@ -68,6 +76,19 @@
                 <element signature="e#878#879#0" expanded="true" />
                 <element signature="e#920#921#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="45">
+                <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -87,15 +108,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="puck.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/puck.png">
+      <file leaf-file-name="player.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/player.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/player.png">
+      <file leaf-file-name="playerShooting.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/playerShooting.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -104,8 +125,8 @@
       <file leaf-file-name="GameView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="38" column="29" lean-forward="false" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+            <state relative-caret-position="435">
+              <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -173,16 +194,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="43" lean-forward="false" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -207,14 +218,15 @@
       <list>
         <option value="$PROJECT_DIR$/src/GameModel.java" />
         <option value="$PROJECT_DIR$/src/InputKeyEvents.java" />
-        <option value="$PROJECT_DIR$/src/GameView.java" />
         <option value="$PROJECT_DIR$/src/Constants.java" />
         <option value="$PROJECT_DIR$/src/RoundSprite.java" />
         <option value="$PROJECT_DIR$/src/Ball.java" />
-        <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/StadiumView.java" />
+        <option value="$PROJECT_DIR$/src/GameView.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
         <option value="$PROJECT_DIR$/src/GameController.java" />
+        <option value="$PROJECT_DIR$/src/Game.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -425,7 +437,8 @@
     <MESSAGE value="Balls can collide dynamically!" />
     <MESSAGE value="simple friction added." />
     <MESSAGE value="friction applied also to players' movement + changed handlingMovement()." />
-    <option name="LAST_COMMIT_MESSAGE" value="friction applied also to players' movement + changed handlingMovement()." />
+    <MESSAGE value="refactored engine of collsions." />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored engine of collsions." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -434,16 +447,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/puck.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/player.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -507,8 +510,8 @@
           <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -519,9 +522,12 @@
           <caret line="142" column="26" lean-forward="false" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#GameController#0;class#GameController#0" expanded="false" />
+            <element signature="method#update#0;class#GameController#0" expanded="false" />
+            <element signature="method#doObjectsCollide#0;class#GameController#0" expanded="false" />
+            <element signature="method#handleCollision#0;class#GameController#0" expanded="false" />
+            <element signature="method#performStaticCollision#0;class#GameController#0" expanded="false" />
             <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyPressed#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
             <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
           </folding>
         </state>
@@ -621,8 +627,8 @@
           <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -721,9 +727,12 @@
           <caret line="142" column="26" lean-forward="false" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#GameController#0;class#GameController#0" expanded="false" />
+            <element signature="method#update#0;class#GameController#0" expanded="false" />
+            <element signature="method#doObjectsCollide#0;class#GameController#0" expanded="false" />
+            <element signature="method#handleCollision#0;class#GameController#0" expanded="false" />
+            <element signature="method#performStaticCollision#0;class#GameController#0" expanded="false" />
             <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyPressed#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
             <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
           </folding>
         </state>
@@ -735,8 +744,8 @@
           <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -835,9 +844,12 @@
           <caret line="142" column="26" lean-forward="true" selection-start-line="142" selection-start-column="26" selection-end-line="142" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#GameController#0;class#GameController#0" expanded="false" />
+            <element signature="method#update#0;class#GameController#0" expanded="false" />
+            <element signature="method#doObjectsCollide#0;class#GameController#0" expanded="false" />
+            <element signature="method#handleCollision#0;class#GameController#0" expanded="false" />
+            <element signature="method#performStaticCollision#0;class#GameController#0" expanded="false" />
             <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyPressed#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
             <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
           </folding>
         </state>
@@ -849,8 +861,8 @@
           <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -949,9 +961,12 @@
           <caret line="71" column="46" lean-forward="true" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#GameController#0;class#GameController#0" expanded="false" />
+            <element signature="method#update#0;class#GameController#0" expanded="false" />
+            <element signature="method#doObjectsCollide#0;class#GameController#0" expanded="false" />
+            <element signature="method#handleCollision#0;class#GameController#0" expanded="false" />
+            <element signature="method#performStaticCollision#0;class#GameController#0" expanded="false" />
             <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyPressed#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
             <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
           </folding>
         </state>
@@ -963,8 +978,8 @@
           <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -976,9 +991,12 @@
           <caret line="2" column="207" lean-forward="false" selection-start-line="2" selection-start-column="207" selection-end-line="2" selection-end-column="207" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#GameController#0;class#GameController#0" expanded="false" />
+            <element signature="method#update#0;class#GameController#0" expanded="false" />
+            <element signature="method#doObjectsCollide#0;class#GameController#0" expanded="false" />
+            <element signature="method#handleCollision#0;class#GameController#0" expanded="false" />
+            <element signature="method#performStaticCollision#0;class#GameController#0" expanded="false" />
             <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyPressed#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
             <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
           </folding>
         </state>
@@ -1013,23 +1031,6 @@
     <entry file="file://$PROJECT_DIR$/puck.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/player.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="1" lean-forward="false" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1024#1025#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Constants.java">
@@ -1092,16 +1093,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="38" column="29" lean-forward="false" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/StadiumView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1119,10 +1110,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="112" column="66" lean-forward="true" selection-start-line="112" selection-start-column="66" selection-end-line="112" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#GameController#0;class#GameController#0" expanded="false" />
+            <element signature="method#update#0;class#GameController#0" expanded="false" />
+            <element signature="method#doObjectsCollide#0;class#GameController#0" expanded="false" />
+            <element signature="method#handleCollision#0;class#GameController#0" expanded="false" />
+            <element signature="method#performStaticCollision#0;class#GameController#0" expanded="false" />
+            <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
+            <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/playerShooting.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="62" column="29" lean-forward="false" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+        <state relative-caret-position="397">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#651#652#0" expanded="true" />
@@ -1137,17 +1177,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="98" column="34" lean-forward="true" selection-start-line="98" selection-start-column="34" selection-end-line="98" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#calcDistance#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyPressed#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-            <element signature="method#handleMoving#0;class#InputKeyEvents#0;class#GameController#0" expanded="false" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="45">
+            <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

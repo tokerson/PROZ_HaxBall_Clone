@@ -8,25 +8,27 @@ class GameController
 {
 
     private ArrayList<Player> players;
-    private Ball ball;
+    private ArrayList<Ball> balls;
     private ArrayList<RoundSprite> gameObjects = new ArrayList<>();
     private GameView  gameView;
     int[] player1Keys;
     int[] player2Keys;
     private Timer timer;
 
-    GameController(ArrayList<Player> players,Ball ball, GameView gV){
+    GameController(ArrayList<Player> players,ArrayList<Ball> balls, GameView gV){
 
         this.players = players;
-        this.ball = ball;
+        this.balls = balls;
 
         for(int i = 0 ; i < this.players.size();++i){
             gameObjects.add(this.players.get(i));
         }
-        gameObjects.add(ball);
+        for(int i = 0 ; i < this.balls.size();++i){
+            gameObjects.add(this.balls.get(i));
+        }
         gameView  = gV;
-        player1Keys = new int[2];
-        player2Keys = new int[2];
+        player1Keys = new int[3];
+        player2Keys = new int[3];
 
         gameView.addKeyListener(new InputKeyEvents() {
 
@@ -48,7 +50,9 @@ class GameController
         for(Player player : players){
             player.update();
         }
-        ball.update();
+        for(Ball ball : balls){
+            ball.update();
+        }
     }
 
     private boolean doObjectsCollide(RoundSprite sprite1,RoundSprite sprite2){
@@ -129,6 +133,9 @@ class GameController
                 case KeyEvent.VK_LEFT :
                     player1Keys[1] = -1;
                     break;
+                case KeyEvent.VK_SPACE:
+                    player1Keys[2] = 1;
+                    break;
                 case KeyEvent.VK_W :
                     player2Keys[0] = -1;
                     break;
@@ -140,6 +147,9 @@ class GameController
                     break;
                 case KeyEvent.VK_A :
                     player2Keys[1] = -1;
+                    break;
+                case KeyEvent.VK_P:
+                    player2Keys[2] = 1;
                     break;
             }
             handleMoving();
@@ -160,6 +170,9 @@ class GameController
                 case KeyEvent.VK_LEFT :
                     player1Keys[1] = 0;
                     break;
+                case KeyEvent.VK_SPACE:
+                    player1Keys[2] = 0;
+                    break;
                 case KeyEvent.VK_W :
                     player2Keys[0] = 0;
                     break;
@@ -171,6 +184,9 @@ class GameController
                     break;
                 case KeyEvent.VK_A :
                     player2Keys[1] = 0;
+                    break;
+                case KeyEvent.VK_P:
+                    player2Keys[2] = 0;
                     break;
             }
                 handleMoving();

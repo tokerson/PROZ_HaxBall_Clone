@@ -13,12 +13,12 @@ import static java.awt.image.ImageObserver.WIDTH;
 public class GameView extends JPanel {
 
     private ArrayList<Player> players;
-    private Ball ball;
+    private ArrayList<Ball> balls;
 
-    GameView(ArrayList<Player> players,Ball ball){
+    GameView(ArrayList<Player> players,ArrayList<Ball> balls){
         setFocusable(true);
         this.players = players;
-        this.ball = ball;
+        this.balls = balls;
         setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
 
     }
@@ -27,7 +27,9 @@ public class GameView extends JPanel {
         for(Player player:players) {
             g.drawImage(player.getImage(), (int)player.getX(), (int)player.getY(), 2*player.getRadius(), 2*player.getRadius(), this);
         }
-        g.drawImage(ball.getImage(),(int) ball.getX(),(int) ball.getY(),2*ball.getRadius(),2*ball.getRadius(),this);
+        for(Ball ball : balls) {
+            g.drawImage(ball.getImage(), (int) ball.getX(), (int) ball.getY(), 2 * ball.getRadius(), 2 * ball.getRadius(), this);
+        }
     }
 
     @Override
