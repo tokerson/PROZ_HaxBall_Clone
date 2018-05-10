@@ -14,7 +14,8 @@ class GameController
     private Ball ball;
     private ArrayList<RoundSprite> gameObjects = new ArrayList<>();
     private GameView  gameView;
-    boolean[] keys;
+    boolean[] player1Keys;
+    boolean[] player2Keys;
     private Timer timer;
 
     GameController(ArrayList<Player> players,Ball ball, GameView gV){
@@ -27,7 +28,8 @@ class GameController
         }
         gameObjects.add(ball);
         gameView  = gV;
-        keys = new boolean[10];
+        player1Keys = new boolean[5];
+        player2Keys = new boolean[5];
 
         gameView.addKeyListener(new InputKeyEvents() {
 
@@ -109,28 +111,28 @@ class GameController
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()){
                 case KeyEvent.VK_UP :
-                      keys[0] = true;
+                    player1Keys[0] = true;
                     break;
                 case KeyEvent.VK_DOWN :
-                        keys[1] = true;
+                    player1Keys[1] = true;
                     break;
                 case KeyEvent.VK_RIGHT :
-                        keys[2] = true;
+                    player1Keys[2] = true;
                     break;
                 case KeyEvent.VK_LEFT :
-                        keys[3] = true;
+                    player1Keys[3] = true;
                     break;
                 case KeyEvent.VK_W :
-                        keys[4] = true;
+                    player2Keys[0] = true;
                     break;
                 case KeyEvent.VK_S :
-                        keys[5] = true;
+                    player2Keys[1] = true;
                     break;
                 case KeyEvent.VK_D :
-                        keys[6] = true;
+                    player2Keys[2] = true;
                     break;
                 case KeyEvent.VK_A :
-                        keys[7] = true;
+                    player2Keys[3] = true;
                     break;
             }
             handleMoving();
@@ -140,38 +142,31 @@ class GameController
         public void keyReleased(KeyEvent e) {
             switch (e.getKeyCode()){
                 case KeyEvent.VK_UP :
-                    keys[0] = false;
-                    players.get(0).setYspeed(0);
+                    player1Keys[0] = false;
                     break;
                 case KeyEvent.VK_DOWN :
-                    keys[1] = false;
-                    players.get(0).setYspeed(0);
+                    player1Keys[1] = false;
                     break;
                 case KeyEvent.VK_RIGHT :
-                    keys[2] = false;
-                    players.get(0).setXspeed(0);
+                    player1Keys[2] = false;
                     break;
                 case KeyEvent.VK_LEFT :
-                    keys[3] = false;
-                    players.get(0).setXspeed(0);
+                    player1Keys[3] = false;
                     break;
                 case KeyEvent.VK_W :
-                    keys[4] = false;
-                    players.get(1).setYspeed(0);
+                    player2Keys[0] = false;
                     break;
                 case KeyEvent.VK_S :
-                    keys[5] = false;
-                    players.get(1).setYspeed(0);
+                    player2Keys[1] = false;
                     break;
                 case KeyEvent.VK_D :
-                    keys[6] = false;
-                    players.get(1).setXspeed(0);
+                    player2Keys[2] = false;
                     break;
                 case KeyEvent.VK_A :
-                    keys[7] = false;
-                    players.get(1).setXspeed(0);
+                    player2Keys[3] = false;
                     break;
             }
+                handleMoving();
                 update();
                 gameView.repaint();
         }
@@ -182,44 +177,8 @@ class GameController
         }
 
         private void handleMoving(){
-            if(keys[0]){
-                if(keys[2] || keys[3]){
-                    players.get(0).setYspeed(-Constants.SPEED/Math.sqrt(2));
-                }
-                else
-                    players.get(0).setYspeed(-Constants.SPEED);
-            }
-            if(keys[1]){
-                if(keys[2] || keys[3]){
-                    players.get(0).setYspeed(Constants.SPEED/Math.sqrt(2));
-                } else players.get(0).setYspeed(Constants.SPEED);
-            }
-            if(keys[2]){
-                if(keys[0] || keys[1])
-                    players.get(0).setXspeed(Constants.SPEED/Math.sqrt(2));
-                    else players.get(0).setXspeed(Constants.SPEED);
-            }
-            if(keys[3]){
-                if(keys[0] || keys[1])
-                    players.get(0).setXspeed(-Constants.SPEED/Math.sqrt(2));
-                else players.get(0).setXspeed(-Constants.SPEED);
-            }
-            if(keys[4]){
-                if(keys[6] || keys[7]) players.get(1).setYspeed(-Constants.SPEED/Math.sqrt(2));
-                else players.get(1).setYspeed(-Constants.SPEED);
-            }
-            if(keys[5]){
-                if(keys[6] || keys[7]) players.get(1).setYspeed(Constants.SPEED/Math.sqrt(2));
-                else players.get(1).setYspeed(Constants.SPEED);
-            }
-            if(keys[6]){
-                if(keys[4] || keys[5]) players.get(1).setXspeed(Constants.SPEED/Math.sqrt(2));
-                else players.get(1).setXspeed(Constants.SPEED);
-            }
-            if(keys[7]){
-                if(keys[4] || keys[5]) players.get(1).setXspeed(-Constants.SPEED/Math.sqrt(2));
-                else players.get(1).setXspeed(-Constants.SPEED);
-            }
+            players.get(0).move(player1Keys);
+            players.get(1).move(player2Keys);
         }
     }
 
