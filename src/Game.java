@@ -2,9 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Game extends JFrame{
+public class Game {
 
-    Game(){
+    public static GameView getGameView(){
+
         Player player = new Player(0,0,Constants.PLAYER_RADIUS,2);
         Player player1 = new Player(100,100,Constants.PLAYER_RADIUS,2);
         Ball ball = new Ball(500,500,Constants.BALL_RADIUS,1.5);
@@ -15,24 +16,8 @@ public class Game extends JFrame{
         balls.add(ball);
         GameView gameView = new GameView(players,balls);
         GameController gameController = new GameController(players,balls,gameView);
-        init(gameView);
-    }
-    private void init(GameView gameView){
-        add(gameView);
-        setTitle(Constants.TITLE);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setVisible(true);
-    }
 
-    public static void main(String[] args){
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Game();
-            }
-        });
+        return gameView;
     }
 
 

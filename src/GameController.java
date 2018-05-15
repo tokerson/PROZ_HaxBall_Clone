@@ -30,9 +30,7 @@ class GameController
         player1Keys = new int[3];
         player2Keys = new int[3];
 
-        gameView.addKeyListener(new InputKeyEvents() {
-
-        });
+        gameView.addKeyListener(new InputKeyEvents() {});
 
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -43,6 +41,7 @@ class GameController
                 gameView.repaint();
             }
         };
+
         timer.schedule(timerTask,0,10);
     }
 
