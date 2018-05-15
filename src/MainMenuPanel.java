@@ -10,15 +10,14 @@ import java.awt.event.ActionListener;
 public class MainMenuPanel extends JPanel {
 
 
-    Box box ;
+    Box box = Box.createVerticalBox();;
     Button startButton ;
     Button exitButton ;
 
     MainMenuPanel(){
-//        hBox.setSpacing(100);
-        box = Box.createVerticalBox();
         Box.Filler glue = (Box.Filler) Box.createVerticalGlue();
         glue.changeShape(glue.getMinimumSize(), new Dimension(0,200),glue.getMaximumSize());
+
         startButton = new Button("Start Game");
         startButton.setFont(new Font("Courier New", Font.ITALIC, 30));
         exitButton = new Button("EXIT");
@@ -29,9 +28,11 @@ public class MainMenuPanel extends JPanel {
                 System.exit(0);
             }
         });
+
         box.add(startButton);
         box.add(glue);
         box.add(exitButton);
+
         add(box);
 
     }

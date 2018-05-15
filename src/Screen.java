@@ -14,10 +14,11 @@ public class Screen extends JFrame  {
     {
         super();
         panel.add(mainMenuPanel,"MainMenuPanel");
+
         mainMenuPanel.startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //panel.removeAll();
+
                 panel.removeAll();
                 gv = Game.getGameView();
                 panel.add(gv);
@@ -28,6 +29,7 @@ public class Screen extends JFrame  {
 
             }
         });
+
         add(panel);
         panel.requestFocusInWindow();
         setTitle(Constants.TITLE);
@@ -37,11 +39,6 @@ public class Screen extends JFrame  {
         pack();
         setVisible(true);
     }
-
-    private void createMainMenu(){
-
-    }
-
 
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {

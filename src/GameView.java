@@ -8,8 +8,6 @@ import java.util.TimerTask;
 
 import static java.awt.image.ImageObserver.WIDTH;
 
-//show all the things
-//When you do something to the view (like click a Key) then the view tells the controller what you did. It's the controller's job to handle that.
 public class GameView extends JPanel {
 
     private ArrayList<Player> players;
