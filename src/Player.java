@@ -12,9 +12,7 @@ class Player extends RoundSprite {
 
     Player(int x, int y, int r, double m) {
         super(x, y, r, m);
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image img = toolkit.getImage(Imagefile);
-        setImage(img);
+        setImage(Imagefile);
     }
 
     public void update() {
@@ -45,6 +43,12 @@ class Player extends RoundSprite {
     }
 
     public void move(int[] keys) {
+        if(keys[2] == 1){
+            setImage("playerShooting.png");
+        }
+        else {
+            setImage(Imagefile);
+        }
 
         if(isAnyKeyPressed(keys)){
             friction = 1.0;
@@ -59,8 +63,12 @@ class Player extends RoundSprite {
             }
         }
         else friction = 0.96;
+    }
 
-
+    private void setImage(String image){
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image img = toolkit.getImage(image);
+        setImage(img);
     }
 
     private boolean isAnyKeyPressed(int[]keys){

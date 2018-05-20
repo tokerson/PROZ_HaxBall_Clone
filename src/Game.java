@@ -9,7 +9,7 @@ public class Game {
         Player player1 = new Player(0,0,Constants.PLAYER_RADIUS,2);
         Player player2 = new Player(100,100,Constants.PLAYER_RADIUS,2);
 
-        Ball ball = new Ball(500,500,Constants.BALL_RADIUS,1.5);
+        Ball ball = new Ball(500,500,Constants.BALL_RADIUS,2);
 
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);

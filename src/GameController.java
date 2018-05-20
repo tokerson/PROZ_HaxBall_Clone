@@ -61,17 +61,42 @@ class GameController
     }
 
     private void handleCollision(){
-        for(int i = 0 ; i <  gameObjects.size() - 1 ; ++i){
-            for(int j = 1 ; j <  gameObjects.size(); ++j) {
-                if (gameObjects.get(i) !=  gameObjects.get(j) && doObjectsCollide(gameObjects.get(i), gameObjects.get(j))) {
-                    performStaticCollision(gameObjects.get(i), gameObjects.get(j)); // every object collides statically
-                    // every object collides with a ball dynamically
-                    if(gameObjects.get(i) instanceof Ball || gameObjects.get(j) instanceof Ball) {
-                        performDynamicCollision(gameObjects.get(i),gameObjects.get(j));
+
+        if(doObjectsCollide(players.get(0),balls.get(0)) && player1Keys[2] == 1){
+            kick(players.get(0),balls.get(0));
+        }
+        else if(doObjectsCollide(players.get(1),balls.get(0)) && player2Keys[2] == 1){
+            kick(players.get(1),balls.get(0));
+        }
+        else {
+            for (int i = 0; i < gameObjects.size() - 1; ++i) {
+                for (int j = 1; j < gameObjects.size(); ++j) {
+                    if (gameObjects.get(i) != gameObjects.get(j) && doObjectsCollide(gameObjects.get(i), gameObjects.get(j))) {
+                        performStaticCollision(gameObjects.get(i), gameObjects.get(j)); // every object collides statically
+                        // every object collides with a ball dynamically
+                        if (gameObjects.get(i) instanceof Ball || gameObjects.get(j) instanceof Ball) {
+                            performDynamicCollision(gameObjects.get(i), gameObjects.get(j));
+                        }
                     }
                 }
             }
         }
+    }
+
+    private void kick(RoundSprite sprite1, RoundSprite sprite2){
+        double distance = calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
+
+        //fey physics calculations
+        double nx = (sprite2.getX() - sprite1.getX()) / distance;
+        double ny = (sprite2.getY() - sprite1.getY()) / distance;
+        double kx = sprite1.getXspeed() - sprite2.getXspeed();
+        double ky = sprite1.getYspeed() - sprite2.getYspeed();
+        double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite2.getMass());
+
+        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
+        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
+        sprite2.setXspeed(Constants.SHOT_POWER*(sprite2.getXspeed() + p * nx * sprite1.getMass()));
+        sprite2.setYspeed(Constants.SHOT_POWER*(sprite2.getYspeed() + p * ny * sprite1.getMass()));
     }
 
     private void performStaticCollision(RoundSprite sprite1, RoundSprite sprite2){
@@ -132,7 +157,7 @@ class GameController
                 case KeyEvent.VK_LEFT :
                     player1Keys[1] = -1;
                     break;
-                case KeyEvent.VK_SPACE:
+                case KeyEvent.VK_P:
                     player1Keys[2] = 1;
                     break;
                 case KeyEvent.VK_W :
@@ -147,7 +172,7 @@ class GameController
                 case KeyEvent.VK_A :
                     player2Keys[1] = -1;
                     break;
-                case KeyEvent.VK_P:
+                case KeyEvent.VK_SPACE:
                     player2Keys[2] = 1;
                     break;
             }
@@ -169,7 +194,7 @@ class GameController
                 case KeyEvent.VK_LEFT :
                     player1Keys[1] = 0;
                     break;
-                case KeyEvent.VK_SPACE:
+                case KeyEvent.VK_P:
                     player1Keys[2] = 0;
                     break;
                 case KeyEvent.VK_W :
@@ -184,7 +209,7 @@ class GameController
                 case KeyEvent.VK_A :
                     player2Keys[1] = 0;
                     break;
-                case KeyEvent.VK_P:
+                case KeyEvent.VK_SPACE:
                     player2Keys[2] = 0;
                     break;
             }
