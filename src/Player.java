@@ -6,8 +6,6 @@ import java.awt.*;
 class Player extends RoundSprite {
 
     private final String Imagefile = "player.png";
-    private boolean kicking;
-    private int shotPower;
     private double friction = 1;
 
     Player(int x, int y, int r, double m) {
@@ -20,26 +18,6 @@ class Player extends RoundSprite {
         yspeed = yspeed * friction;
         x += xspeed;
         y += yspeed;
-    }
-
-    public boolean isKicking() {
-        return kicking;
-    }
-
-    public void setKicking(boolean kicking) {
-        this.kicking = kicking;
-    }
-
-    public int getShotPower() {
-        return shotPower;
-    }
-
-    public void setShotPower(int shotPower) {
-        this.shotPower = shotPower;
-    }
-
-    public void kick(){
-
     }
 
     public void move(int[] keys) {
@@ -65,11 +43,6 @@ class Player extends RoundSprite {
         else friction = 0.96;
     }
 
-    private void setImage(String image){
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image img = toolkit.getImage(image);
-        setImage(img);
-    }
 
     private boolean isAnyKeyPressed(int[]keys){
         for(int i = 0 ; i < 2 ; ++i){

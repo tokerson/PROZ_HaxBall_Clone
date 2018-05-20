@@ -1,4 +1,4 @@
-import java.awt.Image;
+import java.awt.*;
 
 public class RoundSprite {
 
@@ -88,4 +88,11 @@ public class RoundSprite {
     public void setMass(double mass) {
         this.mass = mass;
     }
+
+    public void setImage(String image){
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image img = toolkit.getImage(image);
+        setImage(img);
+    }
+
 }
