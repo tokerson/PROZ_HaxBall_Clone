@@ -15,11 +15,15 @@ public class MainMenuPanel extends JPanel {
     Button exitButton ;
 
     MainMenuPanel(){
+
+        setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
+
         Box.Filler glue = (Box.Filler) Box.createVerticalGlue();
         glue.changeShape(glue.getMinimumSize(), new Dimension(0,200),glue.getMaximumSize());
 
         startButton = new Button("Start Game");
         startButton.setFont(new Font("Courier New", Font.ITALIC, 30));
+
         exitButton = new Button("EXIT");
         exitButton.setFont(new Font("Courier New", Font.ITALIC, 30));
         exitButton.addActionListener(new ActionListener() {

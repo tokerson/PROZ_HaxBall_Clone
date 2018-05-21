@@ -5,34 +5,22 @@ import java.awt.event.ActionListener;
 
 public class Screen extends JFrame  {
 
-    JPanel panel = new JPanel();
-
     MainMenuPanel mainMenuPanel = new MainMenuPanel();
     GameView gv;
 
     public Screen()
     {
-        super();
-        panel.add(mainMenuPanel,"MainMenuPanel");
-
+        add(mainMenuPanel);
         mainMenuPanel.startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                panel.removeAll();
-                gv = Game.getGameView();
-                panel.add(gv);
-                gv.requestFocusInWindow();
-                pack();
-                revalidate();
-                repaint();
-
+                setVisible(false);
+                new Game();
             }
         });
-
-        add(panel);
-        panel.requestFocusInWindow();
         setTitle(Constants.TITLE);
+        setSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
+        setMinimumSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
         setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);

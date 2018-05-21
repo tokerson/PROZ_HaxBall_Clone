@@ -5,11 +5,13 @@ class Ball extends RoundSprite {
     private final String Imagefile = "puck.png";
     private double friction = 0.98;
 
+    Ball(){
+        setImage(Imagefile);
+    }
+
     Ball(int x, int y, int r,double m){
         super(x,y,r,m);
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image img = toolkit.getImage(Imagefile);
-        setImage(img);
+        setImage(Imagefile);
     }
 
     public void update(){

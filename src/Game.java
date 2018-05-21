@@ -2,14 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Game {
+public class Game extends JFrame {
+
+    public Game(){
+        add(getGameView());
+//        setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
+
+    }
 
     public static GameView getGameView(){
 
-        Player player1 = new Player(0,0,Constants.PLAYER_RADIUS,2);
-        Player player2 = new Player(100,100,Constants.PLAYER_RADIUS,2);
+        Stadium stadium = new Stadium();
+        Player player1 = new Player(Constants.WIDTH/4 - Constants.PLAYER_RADIUS,Constants.HEIGHT/2 - Constants.PLAYER_RADIUS,Constants.PLAYER_RADIUS,2);
+        Player player2 = new Player(Constants.WIDTH*3/4 - Constants.PLAYER_RADIUS,Constants.HEIGHT/2 - Constants.PLAYER_RADIUS, Constants.PLAYER_RADIUS,2);
 
-        Ball ball = new Ball(500,500,Constants.BALL_RADIUS,2);
+        Ball ball = new Ball(Constants.WIDTH/2 - Constants.BALL_RADIUS,Constants.HEIGHT/2 - Constants.BALL_RADIUS,Constants.BALL_RADIUS,2);
 
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
@@ -18,8 +29,8 @@ public class Game {
         ArrayList<Ball> balls = new ArrayList<>();
         balls.add(ball);
 
-        GameView gameView = new GameView(players,balls);
-        GameController gameController = new GameController(players,balls,gameView);
+        GameView gameView = new GameView(players,balls,stadium);
+        GameController gameController = new GameController(players,balls,gameView,stadium);
 
         return gameView;
     }

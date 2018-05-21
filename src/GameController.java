@@ -11,14 +11,16 @@ class GameController
     private ArrayList<Ball> balls;
     private ArrayList<RoundSprite> gameObjects = new ArrayList<>();
     private GameView  gameView;
+    private Stadium stadium;
     int[] player1Keys;
     int[] player2Keys;
     private Timer timer;
 
-    GameController(ArrayList<Player> players,ArrayList<Ball> balls, GameView gV){
+    GameController(ArrayList<Player> players,ArrayList<Ball> balls, GameView gV,Stadium stadium){
 
         this.players = players;
         this.balls = balls;
+        this.stadium = stadium;
 
         for(int i = 0 ; i < this.players.size();++i){
             gameObjects.add(this.players.get(i));
@@ -37,12 +39,13 @@ class GameController
             @Override
             public void run() {
                 update();
+//                handleCollisionsAgainstTheWalls();
                 handleCollision();
                 gameView.repaint();
             }
         };
 
-        timer.schedule(timerTask,0,10);
+        timer.schedule(timerTask,0,5);
     }
 
     private void update(){
@@ -52,6 +55,21 @@ class GameController
         for(Ball ball : balls){
             ball.update();
         }
+    }
+
+    private void handleCollisionsAgainstTheWalls(){
+        Ball ball = balls.get(0);
+        Player player1 = players.get(0);
+        Player player2 = players.get(1);
+        for(RoundSprite sprite : gameObjects){
+            if(sprite.getX() + ball.getRadius() <= stadium.getLeftBorder()){
+                if(sprite instanceof Ball){
+                    sprite.setXspeed(-sprite.getXspeed());
+                }
+            }
+        }
+
+
     }
 
     private boolean doObjectsCollide(RoundSprite sprite1,RoundSprite sprite2){
@@ -69,16 +87,27 @@ class GameController
             kick(players.get(1),balls.get(0));
         }
         else {
-            for (int i = 0; i < gameObjects.size() - 1; ++i) {
-                for (int j = 1; j < gameObjects.size(); ++j) {
-                    if (gameObjects.get(i) != gameObjects.get(j) && doObjectsCollide(gameObjects.get(i), gameObjects.get(j))) {
-                        performStaticCollision(gameObjects.get(i), gameObjects.get(j)); // every object collides statically
-                        // every object collides with a ball dynamically
-                        if (gameObjects.get(i) instanceof Ball || gameObjects.get(j) instanceof Ball) {
-                            performDynamicCollision(gameObjects.get(i), gameObjects.get(j));
-                        }
-                    }
-                }
+//            for (int i = 0; i < gameObjects.size() - 1; ++i) {
+//                for (int j = 1; j < gameObjects.size(); ++j) {
+//                    if (gameObjects.get(i) != gameObjects.get(j) && doObjectsCollide(gameObjects.get(i), gameObjects.get(j))) {
+//                        performStaticCollision(gameObjects.get(i), gameObjects.get(j)); // every object collides statically
+//                        // every object collides with a ball dynamically
+//                        if (gameObjects.get(i) instanceof Ball || gameObjects.get(j) instanceof Ball) {
+//                            performDynamicCollision(gameObjects.get(i), gameObjects.get(j));
+//                        }
+//                    }
+//                }
+//            }
+            if(doObjectsCollide(players.get(0),players.get(1))){
+                performStaticCollision(players.get(0),players.get(1));
+            }
+            if(doObjectsCollide(players.get(0),balls.get(0))){
+                performStaticCollision(players.get(0),balls.get(0));
+                performDynamicCollision(players.get(0),balls.get(0));
+            }
+            if(doObjectsCollide(players.get(1),balls.get(0))){
+                performStaticCollision(players.get(1),balls.get(0));
+                performDynamicCollision(players.get(1),balls.get(0));
             }
         }
     }
@@ -97,6 +126,8 @@ class GameController
         sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
         sprite2.setXspeed(Constants.SHOT_POWER*(sprite2.getXspeed() + p * nx * sprite1.getMass()));
         sprite2.setYspeed(Constants.SHOT_POWER*(sprite2.getYspeed() + p * ny * sprite1.getMass()));
+
+//        handleCollisionsAgainstTheWalls();
     }
 
     private void performStaticCollision(RoundSprite sprite1, RoundSprite sprite2){
@@ -131,10 +162,15 @@ class GameController
         double ky = sprite1.getYspeed() - sprite2.getYspeed();
         double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite2.getMass());
 
-        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
-        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
+
+//        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
+//        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
+        sprite1.setXspeed(sprite1.getXspeed());
+        sprite1.setYspeed(sprite1.getYspeed());
         sprite2.setXspeed(sprite2.getXspeed() + p * nx * sprite1.getMass());
         sprite2.setYspeed(sprite2.getYspeed() + p * ny * sprite1.getMass());
+
+
     }
 
     private double calcDistance(double x1, double x2 , double y1 , double y2){
@@ -177,6 +213,8 @@ class GameController
                     break;
             }
             handleMoving();
+//            update();
+
         }
 
         @Override
