@@ -65,6 +65,10 @@ public class RoundSprite {
         return radius;
     }
 
+    public void setRadius(int radius){
+        this.radius = radius;
+    }
+
     public Image getImage() {
         return image;
     }

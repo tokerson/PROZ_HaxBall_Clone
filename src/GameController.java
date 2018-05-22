@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -15,6 +17,10 @@ class GameController
     int[] player1Keys;
     int[] player2Keys;
     private Timer timer;
+    private int player1Score = 0;
+    private int player2Score = 0;
+    JLabel label = new JLabel(player1Score+":"+ player2Score);
+
 
     GameController(ArrayList<Player> players,ArrayList<Ball> balls, GameView gV,Stadium stadium){
 
@@ -33,22 +39,27 @@ class GameController
         player2Keys = new int[3];
 
         gameView.addKeyListener(new InputKeyEvents() {});
+        label.setOpaque(false);
+        label.setFont(new Font("Courier New", Font.BOLD, 40));
+        gameView.add(label);
 
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                handleCollisionsAgainstTheWalls();
                 update();
-                handleCollision();
+//                handleCollision();
                 gameView.repaint();
             }
         };
 
-        timer.schedule(timerTask,0,5);
+        timer.schedule(timerTask,0,10);
     }
 
     private void update(){
+        handleCollisionsAgainstTheWalls();
+        handleCollision();
+
         for(Player player : players){
             player.update();
         }
@@ -61,16 +72,13 @@ class GameController
         Ball ball = balls.get(0);
         Player player1 = players.get(0);
         Player player2 = players.get(1);
-        for(RoundSprite sprite : gameObjects){
-            if(sprite.getX() + ball.getRadius() <= stadium.getLeftBorder()){
-                if(sprite instanceof Ball){
-                    sprite.setXspeed(-sprite.getXspeed());
-                }
-                else if(player1Keys[1] == -1){
-                    player1Keys[1] = 0 ;
-                    player1.setXspeed(0.0);
-                }
-            }
+
+
+        if (ball.getX() <= stadium.getLeftBorder() || ball.getX() >= stadium.getRightBorder()) {
+            ball.setXspeed(-ball.getXspeed());
+        }
+        if (ball.getY() <= stadium.getTopBorder() || ball.getY() >= stadium.getDownBorder()) {
+            ball.setYspeed(-ball.getYspeed());
         }
 
 
@@ -108,6 +116,7 @@ class GameController
             if(doObjectsCollide(players.get(0),balls.get(0))){
                 performStaticCollision(players.get(0),balls.get(0));
                 performDynamicCollision(players.get(0),balls.get(0));
+
             }
             if(doObjectsCollide(players.get(1),balls.get(0))){
                 performStaticCollision(players.get(1),balls.get(0));
@@ -122,14 +131,15 @@ class GameController
         //fey physics calculations
         double nx = (sprite2.getX() - sprite1.getX()) / distance;
         double ny = (sprite2.getY() - sprite1.getY()) / distance;
-        double kx = sprite1.getXspeed() - sprite2.getXspeed();
-        double ky = sprite1.getYspeed() - sprite2.getYspeed();
+        double kx = sprite1.getXspeed() ;
+        double ky = sprite1.getYspeed() ;
         double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite2.getMass());
 
-        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
-        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
-        sprite2.setXspeed(Constants.SHOT_POWER*(sprite2.getXspeed() + p * nx * sprite1.getMass()));
-        sprite2.setYspeed(Constants.SHOT_POWER*(sprite2.getYspeed() + p * ny * sprite1.getMass()));
+        sprite1.setXspeed(sprite1.getXspeed());
+        sprite1.setYspeed(sprite1.getYspeed());
+        sprite2.setXspeed(Constants.SHOT_POWER*( p * nx * sprite1.getMass()));
+        sprite2.setYspeed(Constants.SHOT_POWER*( p * ny * sprite1.getMass()));
+
 
 //        handleCollisionsAgainstTheWalls();
     }
@@ -148,6 +158,7 @@ class GameController
         sprite1y -= overlap*(sprite1y - sprite2y) / distance;
         sprite2x += overlap*(sprite1x - sprite2x) / distance;
         sprite2y += overlap*(sprite1y - sprite2y) / distance;
+
 
         sprite1.setX(sprite1x);
         sprite1.setY(sprite1y);
@@ -216,7 +227,7 @@ class GameController
                     player2Keys[2] = 1;
                     break;
             }
-            handleCollisionsAgainstTheWalls();
+//            handleCollisionsAgainstTheWalls();
             handleMoving();
 //            update();
 
@@ -256,7 +267,6 @@ class GameController
                     player2Keys[2] = 0;
                     break;
             }
-                handleCollisionsAgainstTheWalls();
                 handleMoving();
                 update();
                 gameView.repaint();

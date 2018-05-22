@@ -17,13 +17,20 @@ public class Stadium {
     private double leftBorder;
     private double rightBorder;
 
+    RoundSprite leftTopPost;
+
 
     public Stadium(){
         setImage(Imagefile);
-        topBorder = 100;
-        downBorder = Constants.HEIGHT - 100;
-        leftBorder = 100;
-        rightBorder = Constants.WIDTH - 100;
+        topBorder = 55;
+        downBorder = Constants.HEIGHT - 115;
+        leftBorder = 70;
+        rightBorder = Constants.WIDTH - 130;
+
+        leftTopPost = new RoundSprite();
+        leftTopPost.setX(leftBorder);
+        leftTopPost.setY(150);
+        leftTopPost.setRadius(10);
     }
     public int getHeight() {
         return height;
@@ -81,4 +88,5 @@ public class Stadium {
     public void setRightBorder(double rightBorder) {
         this.rightBorder = rightBorder;
     }
+
 }
