@@ -32,6 +32,8 @@ public class GameView extends JPanel {
         super.paintComponent(g);
         g.drawImage(stadium.getImage(),0,0,Constants.WIDTH,Constants.HEIGHT,this);
         drawPlayersAndBall(g);
+        g.drawOval(70,210,10,10);
+        g.drawOval(70,370,10,10);
     }
 
 

@@ -17,7 +17,10 @@ public class Stadium {
     private double leftBorder;
     private double rightBorder;
 
-    RoundSprite leftTopPost;
+    private double leftTopPost;
+    private double leftBottomPost;
+    private double rightTopPost;
+    private double rightBottomPost;
 
 
     public Stadium(){
@@ -27,10 +30,12 @@ public class Stadium {
         leftBorder = 70;
         rightBorder = Constants.WIDTH - 130;
 
-        leftTopPost = new RoundSprite();
-        leftTopPost.setX(leftBorder);
-        leftTopPost.setY(150);
-        leftTopPost.setRadius(10);
+        leftTopPost = 210;
+        leftBottomPost = 370;
+
+        rightTopPost = 210;
+        rightBottomPost = 370;
+
     }
     public int getHeight() {
         return height;
@@ -89,4 +94,19 @@ public class Stadium {
         this.rightBorder = rightBorder;
     }
 
+    public double getLeftTopPost() {
+        return leftTopPost;
+    }
+
+    public double getLeftBottomPost() {
+        return leftBottomPost;
+    }
+
+    public double getRightTopPost() {
+        return rightTopPost;
+    }
+
+    public double getRightBottomPost() {
+        return rightBottomPost;
+    }
 }

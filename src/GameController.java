@@ -73,15 +73,59 @@ class GameController
         Player player1 = players.get(0);
         Player player2 = players.get(1);
 
+        if(isBallInTheGoal()){
+            goal();
+            return;
+        }
 
-        if (ball.getX() <= stadium.getLeftBorder() || ball.getX() >= stadium.getRightBorder()) {
+        if (isBallHittingHorizontalWalls()){
             ball.setXspeed(-ball.getXspeed());
         }
         if (ball.getY() <= stadium.getTopBorder() || ball.getY() >= stadium.getDownBorder()) {
             ball.setYspeed(-ball.getYspeed());
         }
+    }
 
+    private boolean isBallHittingHorizontalWalls(){
+        Ball ball = balls.get(0);
+        return (ball.getX() <= stadium.getLeftBorder() &&
+               (ball.getY() + 2*ball.getRadius() < stadium.getLeftTopPost() || ball.getY()  > stadium.getLeftBottomPost()))||
+               (ball.getX() >= stadium.getRightBorder() &&
+               (ball.getY() + 2*ball.getRadius() < stadium.getRightTopPost() || ball.getY()  > stadium.getRightBottomPost()));
+    }
 
+    private void goal(){
+        if (balls.get(0).getX() < Constants.WIDTH / 2){
+            player2Score++;
+        }
+        else{
+            player1Score++;
+        }
+        label.setText(player1Score+":"+ player2Score);
+        reset();
+    }
+
+    private void reset(){
+        players.get(0).setX(Constants.WIDTH/4 - Constants.PLAYER_RADIUS);
+        players.get(0).setY(Constants.HEIGHT/2 - Constants.PLAYER_RADIUS);
+        players.get(0).setXspeed(0.0);
+        players.get(0).setYspeed(0.0);
+
+        players.get(1).setX(Constants.WIDTH*3/4 - Constants.PLAYER_RADIUS);
+        players.get(1).setY(Constants.HEIGHT/2 - Constants.PLAYER_RADIUS);
+        players.get(1).setXspeed(0.0);
+        players.get(1).setYspeed(0.0);
+
+        balls.get(0).setX(Constants.WIDTH/2 - Constants.BALL_RADIUS);
+        balls.get(0).setY(Constants.HEIGHT/2 - Constants.BALL_RADIUS);
+        balls.get(0).setXspeed(0.0);
+        balls.get(0).setYspeed(0.0);
+    }
+
+    private boolean isBallInTheGoal(){
+        Ball ball = balls.get(0);
+
+        return ball.getxCenter() + ball.getRadius() <= stadium.getLeftBorder() || ball.getX() - 2*ball.getRadius() >= stadium.getRightBorder() ;
     }
 
     private boolean doObjectsCollide(RoundSprite sprite1,RoundSprite sprite2){
