@@ -38,8 +38,8 @@ class GameController
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+                handleCollisionsAgainstTheWalls();
                 update();
-//                handleCollisionsAgainstTheWalls();
                 handleCollision();
                 gameView.repaint();
             }
@@ -65,6 +65,10 @@ class GameController
             if(sprite.getX() + ball.getRadius() <= stadium.getLeftBorder()){
                 if(sprite instanceof Ball){
                     sprite.setXspeed(-sprite.getXspeed());
+                }
+                else if(player1Keys[1] == -1){
+                    player1Keys[1] = 0 ;
+                    player1.setXspeed(0.0);
                 }
             }
         }
@@ -163,10 +167,10 @@ class GameController
         double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite2.getMass());
 
 
-//        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
-//        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
-        sprite1.setXspeed(sprite1.getXspeed());
-        sprite1.setYspeed(sprite1.getYspeed());
+        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
+        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
+//        sprite1.setXspeed(sprite1.getXspeed());
+//        sprite1.setYspeed(sprite1.getYspeed());
         sprite2.setXspeed(sprite2.getXspeed() + p * nx * sprite1.getMass());
         sprite2.setYspeed(sprite2.getYspeed() + p * ny * sprite1.getMass());
 
@@ -212,6 +216,7 @@ class GameController
                     player2Keys[2] = 1;
                     break;
             }
+            handleCollisionsAgainstTheWalls();
             handleMoving();
 //            update();
 
@@ -251,6 +256,7 @@ class GameController
                     player2Keys[2] = 0;
                     break;
             }
+                handleCollisionsAgainstTheWalls();
                 handleMoving();
                 update();
                 gameView.repaint();
