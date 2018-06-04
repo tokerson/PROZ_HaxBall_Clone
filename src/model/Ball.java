@@ -3,7 +3,7 @@ import java.awt.*;
 public class Ball extends RoundSprite {
 
     private final String Imagefile = "puck.png";
-    private double friction = 0.99;
+    private double friction = 0.98;
 
     public Ball(){
         setImage(Imagefile);

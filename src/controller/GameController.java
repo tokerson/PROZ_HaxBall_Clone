@@ -9,7 +9,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import model.*;
+
 import static model.Constants.*;
+
 import view.*;
 
 class GameController
@@ -19,12 +21,12 @@ class GameController
     private ArrayList<RoundSprite> gameObjects = new ArrayList<>();
     private GameView  gameView;
     private Stadium stadium;
-    int[] player1Keys;
-    int[] player2Keys;
-    private Timer timer;
+    private int[] player1Keys;
+    private int[] player2Keys;
     private int player1Score = 0;
     private int player2Score = 0;
-    JLabel label = new JLabel(player1Score+":"+ player2Score);
+
+    boolean gamePaused = false;
 
     GameController(ArrayList<Player> players,ArrayList<Ball> balls, GameView gV,Stadium stadium){
 
@@ -40,11 +42,8 @@ class GameController
         player2Keys = new int[3];
 
         gameView.addKeyListener(new InputKeyEvents() {});
-        label.setOpaque(false);
-        label.setFont(new Font("Courier New", Font.BOLD, 40));
-        gameView.add(label);
 
-        timer = new Timer();
+        Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -57,13 +56,13 @@ class GameController
     }
 
     private void update(){
-//        handleCollisionsAgainstTheWalls();
-        handleCollision();
-        handleCollisionsAgainstTheWalls();
+        if(!gamePaused) {
+            handleCollision();
+            handleCollisionsAgainstTheWalls();
 
-        players.forEach(Player::update);
-        balls.forEach(Ball::update);
-
+            players.forEach(Player::update);
+            balls.forEach(Ball::update);
+        }
     }
 
     private void handleCollisionsAgainstTheWalls(){
@@ -89,44 +88,51 @@ class GameController
     }
 
     private boolean isBallHittingHorizontalWalls(Ball ball,Stadium stadium){
-        return (ball.getX() <= stadium.getLeftBorder() &&
-               (ball.getY() + 2*ball.getRadius() < stadium.getLeftTopPost() || ball.getY()  > stadium.getLeftBottomPost()))||
-               (ball.getX() >= stadium.getRightBorder() &&
-               (ball.getY() + 2*ball.getRadius() < stadium.getRightTopPost() || ball.getY()  > stadium.getRightBottomPost()));
+        return  (ball.getY() + 2*ball.getRadius() < stadium.getTopPost() || ball.getY()  > stadium.getBottomPost()) &&
+                (ball.getX() <= stadium.getLeftBorder() || ball.getX() + 2*ball.getRadius() >= stadium.getRightBorder());
     }
 
     private void goal(){
-        if (balls.get(0).getX() < Constants.WIDTH / 2){
+        if (balls.get(0).getX() < WIDTH / 2){
             player2Score++;
         }
         else{
             player1Score++;
         }
-        label.setText(player1Score+":"+ player2Score);
+        gameView.updateScore(player1Score,player2Score);
+
+        if(player1Score == 1){
+            gamePaused = true;
+            gameView.showWinner(1);
+        }
+        else if(player2Score == 1){
+            gamePaused = true;
+            gameView.showWinner(2);
+        }
+
         reset();
     }
 
     private void reset(){
-        players.get(0).setX(Constants.WIDTH/4 - Constants.PLAYER_RADIUS);
-        players.get(0).setY(Constants.HEIGHT/2 - Constants.PLAYER_RADIUS);
+        players.get(0).setX(WIDTH/4 - PLAYER_RADIUS);
+        players.get(0).setY(HEIGHT/2 - PLAYER_RADIUS);
         players.get(0).setXspeed(0.0);
         players.get(0).setYspeed(0.0);
 
-        players.get(1).setX(Constants.WIDTH*3/4 - Constants.PLAYER_RADIUS);
-        players.get(1).setY(Constants.HEIGHT/2 - Constants.PLAYER_RADIUS);
+        players.get(1).setX(WIDTH*3/4 - PLAYER_RADIUS);
+        players.get(1).setY(HEIGHT/2 - PLAYER_RADIUS);
         players.get(1).setXspeed(0.0);
         players.get(1).setYspeed(0.0);
 
-        balls.get(0).setX(Constants.WIDTH/2 - Constants.BALL_RADIUS);
-        balls.get(0).setY(Constants.HEIGHT/2 - Constants.BALL_RADIUS);
+        balls.get(0).setX(WIDTH/2 - BALL_RADIUS);
+        balls.get(0).setY(HEIGHT/2 - BALL_RADIUS);
         balls.get(0).setXspeed(0.0);
         balls.get(0).setYspeed(0.0);
     }
 
     private boolean isBallInTheGoal(){
         Ball ball = balls.get(0);
-
-        return ball.getxCenter() + ball.getRadius() <= stadium.getLeftBorder() || ball.getX() - 2*ball.getRadius() >= stadium.getRightBorder() ;
+        return ball.getX() + 2*ball.getRadius() <= stadium.getLeftBorder() || ball.getX() - 2*ball.getRadius() >= stadium.getRightBorder() ;
     }
 
     private boolean doObjectsCollide(RoundSprite sprite1,RoundSprite sprite2){
@@ -265,11 +271,11 @@ class GameController
                 case KeyEvent.VK_SPACE:
                     player2Keys[2] = 1;
                     break;
+                case KeyEvent.VK_ESCAPE:    // leave the game
+                    gameView.backToMainMenu();
+                    break;
             }
-//            handleCollisionsAgainstTheWalls();
             handleMoving();
-//            update();
-
         }
 
         @Override
@@ -321,6 +327,5 @@ class GameController
             players.get(1).move(player2Keys);
         }
     }
-
 
 }

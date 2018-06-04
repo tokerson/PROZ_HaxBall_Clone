@@ -1,58 +1,28 @@
 package model;
 
 import java.awt.*;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
+import static model.Constants.*;
 
 public class Stadium {
 
     private Image image;
-    private final String Imagefile = "pitch.png";
-    private int height;
-    private int width;
-    private double leftGoalX;
-    private double rightGoalX;
 
     private double topBorder;
     private double downBorder;
     private double leftBorder;
     private double rightBorder;
 
-    private double leftTopPost;
-    private double leftBottomPost;
-    private double rightTopPost;
-    private double rightBottomPost;
-
+    private double topPost;
 
     public Stadium(){
-        setImage(Imagefile);
-        topBorder = 55;
-        downBorder = Constants.HEIGHT - 115;
-        leftBorder = 70;
-        rightBorder = Constants.WIDTH - 130;
+        String imagefile = "pitch.png";
+        setImage(imagefile);
+        topBorder = 50*(double)WIDTH/1200;
+        downBorder = HEIGHT - 115*(double)WIDTH/1200;
+        leftBorder = 70*(double)WIDTH/1200;
+        rightBorder = WIDTH - leftBorder;
 
-        leftTopPost = 210;
-        leftBottomPost = 370;
-
-        rightTopPost = 210;
-        rightBottomPost = 370;
-
-    }
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
+        topPost = 200*(double)HEIGHT/568;
     }
 
     public Image getImage(){
@@ -68,47 +38,21 @@ public class Stadium {
         return topBorder;
     }
 
-    public void setTopBorder(double topBorder) {
-        this.topBorder = topBorder;
-    }
-
     public double getDownBorder() {
         return downBorder;
-    }
-
-    public void setDownBorder(double downBorder) {
-        this.downBorder = downBorder;
     }
 
     public double getLeftBorder() {
         return leftBorder;
     }
 
-    public void setLeftBorder(double leftBorder) {
-        this.leftBorder = leftBorder;
-    }
-
     public double getRightBorder() {
         return rightBorder;
     }
 
-    public void setRightBorder(double rightBorder) {
-        this.rightBorder = rightBorder;
-    }
+    public double getTopPost() { return topPost; }
 
-    public double getLeftTopPost() {
-        return leftTopPost;
-    }
-
-    public double getLeftBottomPost() {
-        return leftBottomPost;
-    }
-
-    public double getRightTopPost() {
-        return rightTopPost;
-    }
-
-    public double getRightBottomPost() {
-        return rightBottomPost;
+    public double getBottomPost() {
+        return HEIGHT - topPost;
     }
 }

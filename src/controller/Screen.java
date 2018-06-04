@@ -10,8 +10,6 @@ import view.*;
 public class Screen extends JFrame  {
 
     MainMenuPanel mainMenuPanel = new MainMenuPanel();
-    GameView gv;
-
     public Screen()
     {
         add(mainMenuPanel);
@@ -22,16 +20,41 @@ public class Screen extends JFrame  {
                 new Game();
             }
         });
+
         setTitle(Constants.TITLE);
-        setSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
-        setMinimumSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
-        setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         pack();
         setVisible(true);
     }
 
+    private void addEverything(JPanel panel){
+        JButton startButton = new JButton("Start Game");
+        startButton.setFont(new Font("Courier New", Font.ITALIC, 30));
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                new Game();
+            }
+        });
+        startButton.setPreferredSize(new Dimension(300,80));
+
+        JButton exitButton = new JButton("EXIT");
+        exitButton.setFont(new Font("Courier New", Font.ITALIC, 30));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        exitButton.setPreferredSize(new Dimension(300,80));
+
+        panel.add(startButton);
+        panel.add(exitButton);
+
+    }
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
             @Override
