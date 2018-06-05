@@ -1,7 +1,7 @@
 package model;
 import java.awt.*;
 
-public class RoundSprite {
+public class RoundSprite implements Collidable{
 
     private Image image;
     protected double x;
@@ -94,6 +94,16 @@ public class RoundSprite {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image img = toolkit.getImage(image);
         setImage(img);
+    }
+
+    public boolean isCollidingWith(Collidable collidingObject){
+        double possibleDistance = getRadius() + collidingObject.getRadius() ;
+        double actualDistance= calcDistance(getxCenter() , collidingObject.getxCenter(), getyCenter() , collidingObject.getyCenter());
+        return possibleDistance >= actualDistance ;
+    }
+
+    private double calcDistance(double x1, double x2 , double y1 , double y2){
+        return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
     }
 
 }

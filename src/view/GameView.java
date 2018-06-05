@@ -78,10 +78,10 @@ public class GameView extends JPanel {
         g2.drawImage(stadium.getImage(),0,0,Constants.WIDTH,Constants.HEIGHT,this);
         drawPlayersAndBall(g2);
 //        updateGame();
-        g2.drawOval((int) stadium.getLeftBorder(), (int) stadium.getTopPost(),10,10);
-        g2.drawOval((int) stadium.getLeftBorder(), (int) stadium.getBottomPost(),10,10);
-        g2.drawOval((int) stadium.getRightBorder(), (int) stadium.getTopPost(),10,10);
-        g2.drawOval((int) stadium.getRightBorder(), (int) stadium.getBottomPost(),10,10);
+        g2.drawOval((int) stadium.getLeftBorder() - 11, (int) stadium.getTopPost(),22,22);
+        g2.drawOval((int) stadium.getLeftBorder() - 11, (int) stadium.getBottomPost() - 22 ,22,22);
+        g2.drawOval((int) stadium.getRightBorder() -11, (int) stadium.getTopPost(),22,22);
+        g2.drawOval((int) stadium.getRightBorder() - 11, (int) stadium.getBottomPost() - 22,22,22);
         setOpaque(true);
     }
 
