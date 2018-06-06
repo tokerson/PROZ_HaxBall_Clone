@@ -141,12 +141,6 @@ class GameController
 
     private void handleCollision(){
 
-//        if(balls.get(0).isCollidingWith(players.get(1))){
-//            hitThePost(balls.get(0),players.get(1));
-//        }
-
-
-
         if(players.get(0).isCollidingWith(balls.get(0)) && player1Keys[2] == 1){
             kick(players.get(0),balls.get(0));
         }
@@ -181,8 +175,8 @@ class GameController
 
         double nx = (sprite2.getX() - sprite1.getX()) / distance;
         double ny = (sprite2.getY() - sprite1.getY()) / distance;
-        double kx = sprite1.getXspeed() + sprite1.getXspeed();
-        double ky = sprite1.getYspeed() + sprite1.getYspeed();
+        double kx = sprite1.getXspeed() ;
+        double ky = sprite1.getYspeed() ;
         double p = 2.0 * (nx * kx + ny * ky) / (2*sprite1.getMass());
 
         if(!(sprite1y < stadium.getTopBorder() || sprite1y > stadium.getDownBorder())){
