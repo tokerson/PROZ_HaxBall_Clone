@@ -68,6 +68,12 @@ class GameController
         Player player1 = players.get(0);
         Player player2 = players.get(1);
 
+        for(int i = 0 ; i < stadium.posts.length; i++){
+            if(balls.get(0).isCollidingWith(stadium.posts[i])){
+                hitThePost(balls.get(0),stadium.posts[i]);
+            }
+        }
+
         if(isBallInTheGoal()){
             goal();
             return;
@@ -86,7 +92,7 @@ class GameController
     }
 
     private boolean isBallHittingHorizontalWalls(Ball ball,Stadium stadium){
-        return  (ball.getY() + 2*ball.getRadius() < stadium.getTopPost() || ball.getY()  > stadium.getBottomPost()) &&
+        return  (ball.getY() + 2*ball.getRadius() - 2*stadium.posts[0].getRadius() < stadium.getTopPost() || ball.getY() + 2*stadium.posts[0].getRadius() > stadium.getBottomPost()) &&
                 (ball.getX() <= stadium.getLeftBorder() || ball.getX() + 2*ball.getRadius() >= stadium.getRightBorder());
     }
 
@@ -130,16 +136,11 @@ class GameController
 
     private boolean isBallInTheGoal(){
         Ball ball = balls.get(0);
-        return ball.getX() + 2*ball.getRadius() <= stadium.getLeftBorder() || ball.getX() - 2*ball.getRadius() >= stadium.getRightBorder() ;
+        return ball.getX() + 2*ball.getRadius() <= stadium.getLeftBorder() || ball.getX() >= stadium.getRightBorder() ;
     }
 
     private void handleCollision(){
 
-        for(int i = 0 ; i < stadium.posts.length; i++){
-            if(balls.get(0).isCollidingWith(stadium.posts[i])){
-                hitThePost(balls.get(0),stadium.posts[i]);
-            }
-        }
 //        if(balls.get(0).isCollidingWith(players.get(1))){
 //            hitThePost(balls.get(0),players.get(1));
 //        }
@@ -182,10 +183,14 @@ class GameController
         double ny = (sprite2.getY() - sprite1.getY()) / distance;
         double kx = sprite1.getXspeed() + sprite1.getXspeed();
         double ky = sprite1.getYspeed() + sprite1.getYspeed();
-        double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite1.getMass());
+        double p = 2.0 * (nx * kx + ny * ky) / (2*sprite1.getMass());
 
-        sprite1.setX(sprite1x);
-        sprite1.setY(sprite1y);
+        if(!(sprite1y < stadium.getTopBorder() || sprite1y > stadium.getDownBorder())){
+            sprite1.setY(sprite1y);
+        }
+        if(!(sprite1x <= stadium.getLeftBorder() || sprite1x >= stadium.getRightBorder())){
+            sprite1.setX(sprite1x);
+        }
 
         sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite1.getMass());
         sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite1.getMass());
@@ -337,8 +342,8 @@ class GameController
                     break;
             }
                 handleMoving();
-                update();
-                gameView.repaint();
+//                update();
+//                gameView.repaint();
         }
 
         @Override

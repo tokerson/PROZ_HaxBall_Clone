@@ -1,7 +1,5 @@
 package model;
 
-import static model.Constants.WIDTH;
-
 public class Post implements Collidable {
     private double x;
     private double y;

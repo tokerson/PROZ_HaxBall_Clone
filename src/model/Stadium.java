@@ -15,6 +15,7 @@ public class Stadium {
 
     // 0 - left top post, 1 - left bottom post , 2 - right top post , 3 - right bottom post
     public Post[] posts = new Post[4];
+//    public ArrayList<Post> posts = new ArrayList<>();
 
     public Stadium(){
         String imagefile = "pitch.png";
