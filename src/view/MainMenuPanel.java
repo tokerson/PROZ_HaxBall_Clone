@@ -19,6 +19,7 @@ public class MainMenuPanel extends JPanel {
     public MainMenuPanel(){
 
         JLabel title = new JLabel("ProzBall");
+        title.setForeground(Color.black);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setVerticalAlignment(JLabel.CENTER);
         title.setFont(new Font("Courier New", Font.BOLD, 40));
@@ -30,10 +31,10 @@ public class MainMenuPanel extends JPanel {
         glue.changeShape(glue.getMinimumSize(), new Dimension(0,200),glue.getMaximumSize());
 
         startButton = new Button("Start Game");
-        startButton.setFont(new Font("Courier New", Font.ITALIC, 30));
+        startButton.setFont(new Font("SERIF", Font.ITALIC, 30));
 
         exitButton = new Button("EXIT");
-        exitButton.setFont(new Font("Courier New", Font.ITALIC, 30));
+        exitButton.setFont(new Font("SERIF", Font.ITALIC, 30));
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,6 +49,20 @@ public class MainMenuPanel extends JPanel {
         box.add(exitButton);
 
         add(box);
+
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image img = toolkit.getImage("menuBackground.png");
+
+        g2.drawImage(img,0,0,Constants.WIDTH/2,Constants.HEIGHT,this);
+
 
     }
 

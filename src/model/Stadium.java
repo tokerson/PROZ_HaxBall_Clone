@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+
 import static model.Constants.*;
 
 public class Stadium {

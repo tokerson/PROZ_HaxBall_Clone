@@ -53,7 +53,7 @@ public class GameView extends JPanel {
         JLabel winnerText = new JLabel("<html>PLAYER " + i + " WON!<br/>Press Esc to continue</html>");
         winnerText.setAlignmentX(WIDTH/2);
         winnerText.setAlignmentY(HEIGHT/2);
-        winnerText.setFont(new Font("Courier New", Font.BOLD, 40));
+        winnerText.setFont(new Font("Bradley Hand", Font.BOLD, 40));
         winnerText.setForeground(Color.getHSBColor(184,68,66));
         winnerText.setHorizontalAlignment(JLabel.CENTER);
         winnerText.setVerticalAlignment(JLabel.CENTER);
@@ -72,17 +72,11 @@ public class GameView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setOpaque(false);
         Graphics2D g2 = (Graphics2D) g;
-//        drawStadium();
+
         g2.drawImage(stadium.getImage(),0,0,Constants.WIDTH,Constants.HEIGHT,this);
         drawPlayersAndBall(g2);
-//        updateGame();
-        g2.drawOval((int) stadium.getLeftBorder() - 11, (int) stadium.getTopPost(),22,22);
-        g2.drawOval((int) stadium.getLeftBorder() - 11, (int) stadium.getBottomPost() - 22 ,22,22);
-        g2.drawOval((int) stadium.getRightBorder() -11, (int) stadium.getTopPost(),22,22);
-        g2.drawOval((int) stadium.getRightBorder() - 11, (int) stadium.getBottomPost() - 22,22,22);
-        setOpaque(true);
+
     }
 
 
