@@ -17,7 +17,7 @@ public class MainMenuPanel extends JPanel {
     public MainMenuPanel(){
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        img = toolkit.getImage("menuBackground2.jpg");
+        img = toolkit.getImage("menuBackground.jpg");
 
         JLabel title = new JLabel("ProzBall");
         title.setForeground(Color.white);

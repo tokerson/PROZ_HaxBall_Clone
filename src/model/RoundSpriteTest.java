@@ -28,7 +28,6 @@ public class RoundSpriteTest {
         RoundSprite sprite2 = new RoundSprite(0,2*Constants.PLAYER_RADIUS,Constants.PLAYER_RADIUS,2);
 
         assertTrue(sprite1.isCollidingWith(sprite2));
-
         //move sprite2 away from sprite1 and check if they don't collide
         sprite2.setY(2*Constants.PLAYER_RADIUS + 1);
         assertFalse(sprite1.isCollidingWith(sprite2));
