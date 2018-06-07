@@ -7,27 +7,24 @@ import static model.Constants.*;
 public class Stadium {
 
     private Image image;
-
     private double topBorder;
     private double downBorder;
     private double leftBorder;
     private double rightBorder;
     private double topPost;
-
     // 0 - left top post, 1 - left bottom post , 2 - right top post , 3 - right bottom post
     public Post[] posts = new Post[4];
-//    public ArrayList<Post> posts = new ArrayList<>();
 
     public Stadium(){
         String imagefile = "pitch.png";
         setImage(imagefile);
+
         topBorder = 50*(double)WIDTH/1200;
         downBorder = HEIGHT - 115*(double)WIDTH/1200;
         leftBorder = 70*(double)WIDTH/1200;
         rightBorder = WIDTH - leftBorder;
 
         topPost = 183*(double)HEIGHT/568;
-
 
         for(int i = 0 ; i < posts.length ; i++){
             posts[i] = new Post();
@@ -42,7 +39,6 @@ public class Stadium {
         posts[1].setY(getBottomPost() - 2*posts[1].getRadius());
         posts[2].setY(topPost);
         posts[3].setY(getBottomPost() - 2*posts[3].getRadius());
-
 
     }
 

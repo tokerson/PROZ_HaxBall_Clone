@@ -1,25 +1,17 @@
 package model;
 
-import com.sun.tools.jconsole.JConsoleContext;
-
-import javax.swing.*;
-import java.awt.*;
-
 public class Player extends RoundSprite {
 
     private final String Imagefile = "player.png";
-    private double friction = 1;
+
+    public Player(){
+        this(0,0,Constants.PLAYER_RADIUS,Constants.PLAYER_MASS);
+    }
 
     public Player(int x, int y, int r, double m) {
         super(x, y, r, m);
+        setFriction(1.0);
         setImage(Imagefile);
-    }
-
-    public void update() {
-        xspeed = xspeed * friction;
-        yspeed = yspeed * friction;
-        x += xspeed;
-        y += yspeed;
     }
 
     public void move(int[] keys) {
@@ -34,17 +26,16 @@ public class Player extends RoundSprite {
             friction = 1.0;
 
             if(isMovingInTwoDirections(keys)){
-                setYspeed((double)keys[0]*Constants.SPEED / Math.sqrt(2));
-                setXspeed((double)keys[1]*Constants.SPEED / Math.sqrt(2));
+                setYSpeed((double)keys[0]*Constants.SPEED / Math.sqrt(2));
+                setXSpeed((double)keys[1]*Constants.SPEED / Math.sqrt(2));
             }
             else {
-                setYspeed((double)keys[0]*Constants.SPEED);
-                setXspeed((double)keys[1]*Constants.SPEED);
+                setYSpeed((double)keys[0]*Constants.SPEED);
+                setXSpeed((double)keys[1]*Constants.SPEED);
             }
         }
         else friction = 0.96;
     }
-
 
     private boolean isAnyKeyPressed(int[]keys){
         for(int i = 0 ; i < 2 ; ++i){

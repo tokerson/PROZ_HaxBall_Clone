@@ -17,10 +17,10 @@ public class GameView extends JPanel {
     private Stadium stadium;
     private JLabel scoreLabel;
 
-
     public GameView(ArrayList<Player> players,ArrayList<Ball> balls,Stadium stadium){
         setLayout(new BorderLayout());
         setFocusable(true);
+
         this.players = players;
         this.balls = balls;
         this.stadium = stadium;
@@ -30,6 +30,7 @@ public class GameView extends JPanel {
         scoreLabel.setFont(new Font("Courier New", Font.BOLD, 40));
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         scoreLabel.setVerticalAlignment(JLabel.CENTER);
+
         add(scoreLabel,BorderLayout.NORTH);
 
         setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
@@ -51,6 +52,7 @@ public class GameView extends JPanel {
     public void showWinner(int i ){
 
         JLabel winnerText = new JLabel("<html>PLAYER " + i + " WON!<br/>Press Esc to continue</html>");
+
         winnerText.setAlignmentX(WIDTH/2);
         winnerText.setAlignmentY(HEIGHT/2);
         winnerText.setFont(new Font("Rockwell", Font.BOLD, 40));
@@ -67,7 +69,6 @@ public class GameView extends JPanel {
         frame.setVisible(false);
         new Screen();
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {

@@ -1,6 +1,7 @@
 package model;
 
 public interface Collidable {
+
     double getX();
 
     void setX(double x);
@@ -11,7 +12,7 @@ public interface Collidable {
 
     int getRadius();
 
-    double getxCenter();
+    double getXCenter();
 
-    double getyCenter();
+    double getYCenter();
 }

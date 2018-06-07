@@ -18,8 +18,8 @@ public class RoundSpriteTest {
     @Test
     public void getCenter(){
         RoundSprite player = new RoundSprite(0,0,Constants.PLAYER_RADIUS,2);
-        assertEquals(Constants.PLAYER_RADIUS,player.getxCenter(),0.0);
-        assertEquals(Constants.PLAYER_RADIUS,player.getyCenter(),0.0);
+        assertEquals(Constants.PLAYER_RADIUS,player.getXCenter(),0.0);
+        assertEquals(Constants.PLAYER_RADIUS,player.getYCenter(),0.0);
     }
 
     @Test
@@ -49,33 +49,46 @@ public class RoundSpriteTest {
     @Test
     public void getXSpeedWhenSpeedNotSet(){
         RoundSprite sprite = new RoundSprite(100,100,Constants.PLAYER_RADIUS,2);
-        assertEquals(0,sprite.getXspeed(),0.0);
+        assertEquals(0,sprite.getXSpeed(),0.0);
     }
 
     @Test
     public void getXSpeedWhenSpeedSet(){
         RoundSprite sprite = new RoundSprite(100,100,Constants.PLAYER_RADIUS,2);
-        sprite.setXspeed(5.0);
-        assertEquals(5.0,sprite.getXspeed(),0.0);
+        sprite.setXSpeed(5.0);
+        assertEquals(5.0,sprite.getXSpeed(),0.0);
     }
 
     @Test
     public void getYSpeedWhenSpeedNotSet(){
         RoundSprite sprite = new RoundSprite(100,100,Constants.PLAYER_RADIUS,2);
-        assertEquals(0,sprite.getYspeed(),0.0);
+        assertEquals(0,sprite.getYSpeed(),0.0);
     }
 
     @Test
     public void getYSpeedWhenSpeedSet(){
         RoundSprite sprite = new RoundSprite(100,100,Constants.PLAYER_RADIUS,2);
-        sprite.setYspeed(5.0);
-        assertEquals(5.0,sprite.getYspeed(),0.0);
+        sprite.setYSpeed(5.0);
+        assertEquals(5.0,sprite.getYSpeed(),0.0);
     }
 
     @Test
     public void isRadiusSet(){
         RoundSprite sprite = new RoundSprite(100,100,Constants.PLAYER_RADIUS,2);
         assertEquals(Constants.PLAYER_RADIUS,sprite.getRadius(),0.0);
+    }
+
+    @Test
+    public void isFrictionWorking(){
+        RoundSprite sprite = new RoundSprite(100,100,Constants.PLAYER_RADIUS,2);
+
+        sprite.setFriction(0.9);
+        sprite.setXSpeed(10.0);
+        sprite.setYSpeed(10.0);
+        sprite.update();
+
+        assertEquals(9.0,sprite.getXSpeed(),0.0);
+        assertEquals(9.0,sprite.getYSpeed(),0.0);
     }
 
 }

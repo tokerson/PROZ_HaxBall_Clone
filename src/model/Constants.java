@@ -8,4 +8,6 @@ public class Constants {
     public final static int BALL_RADIUS = 30;
     public final static double SPEED = 3.0;
     public final static double SHOT_POWER = 2.0;
+    public final static double PLAYER_MASS = 2.0;
+    public final static double BALL_MASS = 0.5;
 }

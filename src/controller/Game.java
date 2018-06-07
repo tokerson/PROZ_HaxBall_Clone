@@ -10,7 +10,7 @@ import view.*;
 public class Game extends JFrame {
 
     public Game(){
-        GameView gameView = getGameView();
+        GameView gameView = initGameView();
         add(gameView);
 
         setResizable(false);
@@ -20,13 +20,13 @@ public class Game extends JFrame {
 
     }
 
-    public static GameView getGameView(){
+    private static GameView initGameView(){
 
         Stadium stadium = new Stadium();
-        Player player1 = new Player(Constants.WIDTH/4 - Constants.PLAYER_RADIUS,Constants.HEIGHT/2 - Constants.PLAYER_RADIUS,Constants.PLAYER_RADIUS,2);
-        Player player2 = new Player(Constants.WIDTH*3/4 - Constants.PLAYER_RADIUS,Constants.HEIGHT/2 - Constants.PLAYER_RADIUS, Constants.PLAYER_RADIUS,2);
+        Player player1 = new Player(Constants.WIDTH/4 - Constants.PLAYER_RADIUS,Constants.HEIGHT/2 - Constants.PLAYER_RADIUS,Constants.PLAYER_RADIUS,Constants.PLAYER_MASS);
+        Player player2 = new Player(Constants.WIDTH*3/4 - Constants.PLAYER_RADIUS,Constants.HEIGHT/2 - Constants.PLAYER_RADIUS, Constants.PLAYER_RADIUS,Constants.PLAYER_MASS);
 
-        Ball ball = new Ball(Constants.WIDTH/2 - Constants.BALL_RADIUS,Constants.HEIGHT/2 - Constants.BALL_RADIUS,Constants.BALL_RADIUS,0.5);
+        Ball ball = new Ball(Constants.WIDTH/2 - Constants.BALL_RADIUS,Constants.HEIGHT/2 - Constants.BALL_RADIUS,Constants.BALL_RADIUS,Constants.BALL_MASS);
 
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);

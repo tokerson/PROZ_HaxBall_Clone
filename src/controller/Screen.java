@@ -9,10 +9,9 @@ import view.*;
 
 public class Screen extends JFrame  {
 
-    MainMenuPanel mainMenuPanel = new MainMenuPanel();
     public Screen()
     {
-        add(mainMenuPanel);
+        MainMenuPanel mainMenuPanel = new MainMenuPanel();
         mainMenuPanel.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -21,9 +20,8 @@ public class Screen extends JFrame  {
             }
         });
 
+        add(mainMenuPanel);
         mainMenuPanel.repaint();
-
-
 
         setTitle(Constants.TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

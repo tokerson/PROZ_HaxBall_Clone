@@ -23,19 +23,18 @@ class GameController
     private int[] player2Keys;
     private int player1Score = 0;
     private int player2Score = 0;
+    private boolean gamePaused = false;
 
-    boolean gamePaused = false;
-
-    GameController(ArrayList<Player> players,ArrayList<Ball> balls, GameView gV,Stadium stadium){
+    GameController(ArrayList<Player> players,ArrayList<Ball> balls, GameView gameView,Stadium stadium){
 
         this.players = players;
         this.balls = balls;
         this.stadium = stadium;
+        this.gameView  = gameView;
 
         gameObjects.addAll(this.players);
         gameObjects.addAll(this.balls);
 
-        gameView  = gV;
         player1Keys = new int[3];
         player2Keys = new int[3];
 
@@ -65,8 +64,6 @@ class GameController
 
     private void handleCollisionsAgainstTheWalls(){
         Ball ball = balls.get(0);
-        Player player1 = players.get(0);
-        Player player2 = players.get(1);
 
         for(int i = 0 ; i < stadium.posts.length; i++){
             if(balls.get(0).isCollidingWith(stadium.posts[i])){
@@ -80,10 +77,10 @@ class GameController
         }
 
         if (isBallHittingHorizontalWalls(ball,stadium)){
-            ball.setXspeed(-ball.getXspeed());
+            ball.setXSpeed(-ball.getXSpeed());
         }
         if (isBallHittingVerticalWalls(ball,stadium)) {
-            ball.setYspeed(-ball.getYspeed());
+            ball.setYSpeed(-ball.getYSpeed());
         }
     }
 
@@ -120,18 +117,14 @@ class GameController
     private void reset(){
         players.get(0).setX(WIDTH/4 - PLAYER_RADIUS);
         players.get(0).setY(HEIGHT/2 - PLAYER_RADIUS);
-        players.get(0).setXspeed(0.0);
-        players.get(0).setYspeed(0.0);
 
         players.get(1).setX(WIDTH*3/4 - PLAYER_RADIUS);
         players.get(1).setY(HEIGHT/2 - PLAYER_RADIUS);
-        players.get(1).setXspeed(0.0);
-        players.get(1).setYspeed(0.0);
 
         balls.get(0).setX(WIDTH/2 - BALL_RADIUS);
         balls.get(0).setY(HEIGHT/2 - BALL_RADIUS);
-        balls.get(0).setXspeed(0.0);
-        balls.get(0).setYspeed(0.0);
+
+        gameObjects.forEach(s -> {  s.setXSpeed(0.0);   s.setYSpeed(0.0);   });
     }
 
     private boolean isBallInTheGoal(){
@@ -163,7 +156,7 @@ class GameController
     }
 
     private void hitThePost(RoundSprite sprite1, Collidable sprite2){
-        double distance = calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
+        double distance = calcDistance(sprite1.getXCenter() , sprite2.getXCenter(), sprite1.getYCenter() , sprite2.getYCenter());
         double overlap =  1.0*(distance - sprite1.getRadius() - sprite2.getRadius());
 
         double sprite1x = sprite1.getX();
@@ -175,8 +168,8 @@ class GameController
 
         double nx = (sprite2.getX() - sprite1.getX()) / distance;
         double ny = (sprite2.getY() - sprite1.getY()) / distance;
-        double kx = sprite1.getXspeed() ;
-        double ky = sprite1.getYspeed() ;
+        double kx = sprite1.getXSpeed() ;
+        double ky = sprite1.getYSpeed() ;
         double p = 2.0 * (nx * kx + ny * ky) / (2*sprite1.getMass());
 
         if(!(sprite1y < stadium.getTopBorder() || sprite1y > stadium.getDownBorder())){
@@ -186,25 +179,25 @@ class GameController
             sprite1.setX(sprite1x);
         }
 
-        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite1.getMass());
-        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite1.getMass());
+        sprite1.setXSpeed(sprite1.getXSpeed() - p * nx * sprite1.getMass());
+        sprite1.setYSpeed(sprite1.getYSpeed() - p * ny * sprite1.getMass());
     }
 
     private void kick(RoundSprite sprite1, RoundSprite sprite2){
-        double distance = calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
+        double distance = calcDistance(sprite1.getXCenter() , sprite2.getXCenter(), sprite1.getYCenter() , sprite2.getYCenter());
 
         //fey physics calculations
         double nx = (sprite2.getX() - sprite1.getX()) / distance;
         double ny = (sprite2.getY() - sprite1.getY()) / distance;
-        double kx = sprite1.getXspeed() ;
-        double ky = sprite1.getYspeed() ;
+        double kx = sprite1.getXSpeed() ;
+        double ky = sprite1.getYSpeed() ;
 
         double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite2.getMass());
 
-        sprite1.setXspeed(sprite1.getXspeed());
-        sprite1.setYspeed(sprite1.getYspeed());
-        sprite2.setXspeed(SHOT_POWER*( p * nx * sprite1.getMass()));
-        sprite2.setYspeed(SHOT_POWER*( p * ny * sprite1.getMass()));
+        sprite1.setXSpeed(sprite1.getXSpeed());
+        sprite1.setYSpeed(sprite1.getYSpeed());
+        sprite2.setXSpeed(SHOT_POWER*( p * nx * sprite1.getMass()));
+        sprite2.setYSpeed(SHOT_POWER*( p * ny * sprite1.getMass()));
 
     }
 
@@ -213,7 +206,7 @@ class GameController
     }
 
     private void performStaticCollision(Collidable sprite1, Collidable sprite2){
-        double distance = calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
+        double distance = calcDistance(sprite1.getXCenter() , sprite2.getXCenter(), sprite1.getYCenter() , sprite2.getYCenter());
         double overlap =  0.5*(distance - sprite1.getRadius() - sprite2.getRadius());
 
         double sprite1x = sprite1.getX();
@@ -243,20 +236,20 @@ class GameController
     }
 
     private void performDynamicCollision(RoundSprite sprite1,RoundSprite sprite2){
-        double distance = calcDistance(sprite1.getxCenter() , sprite2.getxCenter(), sprite1.getyCenter() , sprite2.getyCenter());
+        double distance = calcDistance(sprite1.getXCenter() , sprite2.getXCenter(), sprite1.getYCenter() , sprite2.getYCenter());
 
         //fey physics calculations
         double nx = (sprite2.getX() - sprite1.getX()) / distance;
         double ny = (sprite2.getY() - sprite1.getY()) / distance;
-        double kx = sprite1.getXspeed() - sprite2.getXspeed();
-        double ky = sprite1.getYspeed() - sprite2.getYspeed();
+        double kx = sprite1.getXSpeed() - sprite2.getXSpeed();
+        double ky = sprite1.getYSpeed() - sprite2.getYSpeed();
         double p = 2.0 * (nx * kx + ny * ky) / (sprite1.getMass() + sprite2.getMass());
 
-        sprite1.setXspeed(sprite1.getXspeed() - p * nx * sprite2.getMass());
-        sprite1.setYspeed(sprite1.getYspeed() - p * ny * sprite2.getMass());
+        sprite1.setXSpeed(sprite1.getXSpeed() - p * nx * sprite2.getMass());
+        sprite1.setYSpeed(sprite1.getYSpeed() - p * ny * sprite2.getMass());
 
-        sprite2.setXspeed(sprite2.getXspeed() + p * nx * sprite1.getMass());
-        sprite2.setYspeed(sprite2.getYspeed() + p * ny * sprite1.getMass());
+        sprite2.setXSpeed(sprite2.getXSpeed() + p * nx * sprite1.getMass());
+        sprite2.setYSpeed(sprite2.getYSpeed() + p * ny * sprite1.getMass());
 
     }
 

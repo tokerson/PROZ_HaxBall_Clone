@@ -34,11 +34,11 @@ public class Post implements Collidable {
         return radius;
     }
 
-    public double getxCenter(){
+    public double getXCenter(){
         return x + radius;
     }
 
-    public double getyCenter(){
+    public double getYCenter(){
         return y + radius;
     }
 }

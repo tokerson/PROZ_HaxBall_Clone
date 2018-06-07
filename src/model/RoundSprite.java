@@ -4,19 +4,18 @@ import java.awt.*;
 public class RoundSprite implements Collidable{
 
     private Image image;
-    protected double x;
-    protected double y;
-    protected double xspeed;
-    protected double yspeed;
+    double x;
+    double y;
+    double xSpeed;
+    double ySpeed;
     private int radius;
-    private double xCenter;
-    private double yCenter;
     private double mass;
+    double friction;
 
     public RoundSprite(){
         this(0,0,0,1);
-        xspeed = 0;
-        yspeed = 0;
+        xSpeed = 0;
+        ySpeed = 0;
     }
 
     public RoundSprite(int x , int y, int r,double mass ){
@@ -26,20 +25,20 @@ public class RoundSprite implements Collidable{
         this.mass = mass;
     }
 
-    public double getXspeed() {
-        return xspeed;
+    public double getXSpeed() {
+        return xSpeed;
     }
 
-    public void setXspeed(double xspeed) {
-        this.xspeed = xspeed;
+    public void setXSpeed(double xSpeed) {
+        this.xSpeed = xSpeed;
     }
 
-    public double getYspeed() {
-        return yspeed;
+    public double getYSpeed() {
+        return ySpeed;
     }
 
-    public void setYspeed(double yspeed) {
-        this.yspeed = yspeed;
+    public void setYSpeed(double ySpeed) {
+        this.ySpeed = ySpeed;
     }
 
     public double getX() {
@@ -62,10 +61,6 @@ public class RoundSprite implements Collidable{
         return radius;
     }
 
-    public void setRadius(int radius){
-        this.radius = radius;
-    }
-
     public Image getImage() {
         return image;
     }
@@ -74,20 +69,16 @@ public class RoundSprite implements Collidable{
         this.image = image;
     }
 
-    public double getxCenter() {
+    public double getXCenter() {
         return x + radius;
     }
 
-    public double getyCenter() {
+    public double getYCenter() {
         return y + radius;
     }
 
     public double getMass() {
         return mass;
-    }
-
-    public void setMass(double mass) {
-        this.mass = mass;
     }
 
     public void setImage(String image){
@@ -96,14 +87,29 @@ public class RoundSprite implements Collidable{
         setImage(img);
     }
 
+    public double getFriction() {
+        return friction;
+    }
+
+    public void setFriction(double friction) {
+        this.friction = friction;
+    }
+
     public boolean isCollidingWith(Collidable collidingObject){
         double possibleDistance = getRadius() + collidingObject.getRadius() ;
-        double actualDistance= calcDistance(getxCenter() , collidingObject.getxCenter(), getyCenter() , collidingObject.getyCenter());
+        double actualDistance= calcDistance(getXCenter() , collidingObject.getXCenter(), getYCenter() , collidingObject.getYCenter());
         return possibleDistance >= actualDistance ;
     }
 
     private double calcDistance(double x1, double x2 , double y1 , double y2){
         return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+    }
+
+    public void update(){
+        xSpeed = xSpeed *friction;
+        ySpeed = ySpeed *friction;
+        x+= xSpeed;
+        y+= ySpeed;
     }
 
 }
