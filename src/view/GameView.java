@@ -53,7 +53,7 @@ public class GameView extends JPanel {
         JLabel winnerText = new JLabel("<html>PLAYER " + i + " WON!<br/>Press Esc to continue</html>");
         winnerText.setAlignmentX(WIDTH/2);
         winnerText.setAlignmentY(HEIGHT/2);
-        winnerText.setFont(new Font("Bradley Hand", Font.BOLD, 40));
+        winnerText.setFont(new Font("Rockwell", Font.BOLD, 40));
         winnerText.setForeground(Color.getHSBColor(184,68,66));
         winnerText.setHorizontalAlignment(JLabel.CENTER);
         winnerText.setVerticalAlignment(JLabel.CENTER);

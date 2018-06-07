@@ -12,38 +12,38 @@ public class MainMenuPanel extends JPanel {
 
     private BoxLayout boxLayout = new BoxLayout(this,BoxLayout.Y_AXIS);
     private Box box = Box.createVerticalBox();
-    private Button startButton ;
-    private Button exitButton ;
+    private JButton startButton ;
+    private JButton exitButton ;
     private JLabel title;
+    private Image img;
 
     public MainMenuPanel(){
 
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        img = toolkit.getImage("menuBackground2.jpg");
+
         JLabel title = new JLabel("ProzBall");
-        title.setForeground(Color.black);
+        title.setForeground(Color.white);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setVerticalAlignment(JLabel.CENTER);
-        title.setFont(new Font("Courier New", Font.BOLD, 40));
+        title.setFont(new Font("Rockwell", Font.BOLD, 45));
         title.setHorizontalAlignment(WIDTH/2);
         setPreferredSize(new Dimension(Constants.WIDTH/2,Constants.HEIGHT));
-//        setLayout(boxLayout);
 
         Box.Filler glue = (Box.Filler) Box.createVerticalGlue();
-        glue.changeShape(glue.getMinimumSize(), new Dimension(0,200),glue.getMaximumSize());
+        glue.changeShape(glue.getMinimumSize(), new Dimension(0,25),glue.getMaximumSize());
 
-        startButton = new Button("Start Game");
-        startButton.setFont(new Font("SERIF", Font.ITALIC, 30));
+        startButton = new JButton("Start Game");
+        startButton.setFont(new Font("Rockwell", Font.ITALIC, 30));
 
-        exitButton = new Button("EXIT");
-        exitButton.setFont(new Font("SERIF", Font.ITALIC, 30));
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-//
-        box.add(title);
+        exitButton = new JButton("      Exit      " );
+
+        exitButton.setFont(new Font("Rockwell", Font.ITALIC, 30));
+        exitButton.addActionListener(e -> System.exit(0));
+
         box.add(Box.createVerticalStrut(50));
+        box.add(title);
+        box.add(Box.createVerticalStrut(100));
         box.add(startButton);
         box.add(glue);
         box.add(exitButton);
@@ -58,15 +58,11 @@ public class MainMenuPanel extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image img = toolkit.getImage("menuBackground.png");
-
         g2.drawImage(img,0,0,Constants.WIDTH/2,Constants.HEIGHT,this);
-
 
     }
 
-    public Button getStartButton() {
+    public JButton getStartButton() {
         return startButton;
     }
 }

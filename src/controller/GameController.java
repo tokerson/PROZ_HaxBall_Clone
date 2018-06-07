@@ -336,8 +336,6 @@ class GameController
                     break;
             }
                 handleMoving();
-//                update();
-//                gameView.repaint();
         }
 
         @Override

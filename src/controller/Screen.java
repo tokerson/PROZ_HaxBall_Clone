@@ -23,6 +23,8 @@ public class Screen extends JFrame  {
 
         mainMenuPanel.repaint();
 
+
+
         setTitle(Constants.TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
