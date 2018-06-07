@@ -81,6 +81,10 @@ public class RoundSprite implements Collidable{
         return mass;
     }
 
+    public void setRadius(int radius){
+        this.radius = radius;
+    }
+
     public void setImage(String image){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image img = toolkit.getImage(image);
@@ -97,7 +101,7 @@ public class RoundSprite implements Collidable{
 
     public boolean isCollidingWith(Collidable collidingObject){
         double possibleDistance = getRadius() + collidingObject.getRadius() ;
-        double actualDistance= calcDistance(getXCenter() , collidingObject.getXCenter(), getYCenter() , collidingObject.getYCenter());
+        double actualDistance = calcDistance(getXCenter() , collidingObject.getXCenter(), getYCenter() , collidingObject.getYCenter());
         return possibleDistance >= actualDistance ;
     }
 

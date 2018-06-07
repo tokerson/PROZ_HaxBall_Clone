@@ -16,9 +16,11 @@ public class Player extends RoundSprite {
 
     public void move(int[] keys) {
         if(keys[2] == 1){
+            setRadius(Constants.PLAYER_RADIUS + 2);
             setImage("playerShooting.png");
         }
         else {
+            setRadius(Constants.PLAYER_RADIUS);
             setImage(Imagefile);
         }
 
