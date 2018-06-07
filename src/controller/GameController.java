@@ -105,11 +105,11 @@ class GameController
         }
         gameView.updateScore(player1Score,player2Score);
 
-        if(player1Score == 1){
+        if(player1Score == 5){
             gamePaused = true;
             gameView.showWinner(1);
         }
-        else if(player2Score == 1){
+        else if(player2Score == 5){
             gamePaused = true;
             gameView.showWinner(2);
         }
